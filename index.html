@@ -89,7 +89,7 @@
             </div>
             <div class="text-[12px] text-vercelGray600 flex items-center space-x-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
-                <span>마지막 갱신: <span class="text-vercelBlack font-semibold">2026-05-30 03:07:25 KST</span></span>
+                <span>마지막 갱신: <span class="text-vercelBlack font-semibold">2026-05-30 03:12:40 KST</span></span>
             </div>
         </div>
     </nav>
@@ -309,7 +309,6 @@
             const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
             for (let i = 6; i >= 0; i--) {
                 const d = new Date();
-                // Shift to KST (if user is in KST, this will keep accurate offset)
                 d.setDate(d.getDate() - i);
                 const year = d.getFullYear();
                 const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -317,9 +316,9 @@
                 const dayName = dayNames[d.getDay()];
                 
                 dates.push({
-                    key: `\${year}-\${month}-\ \${day}`.replace('\ ', ''), // split escape representation safely
-                    display: `\${month}.\${day} (\${dayName})`,
-                    isoStr: `\${year}-\${month}-\${day}`
+                    key: `${year}-${month}-${day}`, 
+                    display: `${month}.${day} (${dayName})`,
+                    isoStr: `${year}-${month}-${day}`
                 });
             }
             return dates;
@@ -346,7 +345,7 @@
             const filteredSources = sources.filter(s => s.name.toLowerCase().includes(query) || s.category.toLowerCase().includes(query));
 
             if (filteredSources.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="\${last7Days.length + 1}" class="text-center py-16 text-vercelGray500 bg-white text-xs">매트릭스 검색 결과가 없습니다.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${last7Days.length + 1}" class="text-center py-16 text-vercelGray500 bg-white text-xs">매트릭스 검색 결과가 없습니다.</td></tr>`;
                 return;
             }
 
@@ -359,37 +358,37 @@
                     // Check if checked on this day
                     let checkedMarkup = "—";
                     if (source.last_checked_at && source.last_checked_at.substring(0, 10) === day.isoStr) {
-                        checkedMarkup = `<span class="text-emerald-500 font-bold" title="마지막 확인시각: \${source.last_checked_at}">✓</span>`;
+                        checkedMarkup = `<span class="text-emerald-500 font-bold" title="마지막 확인시각: ${source.last_checked_at}">✓</span>`;
                     }
 
                     if (count > 0) {
                         return `
                             <td class="px-2 py-3 border-r border-neutral-100 align-middle">
                                 <div class="flex items-center justify-center">
-                                    <button onclick="openDrawer(\${source.id}, '\${day.isoStr}', '\${source.name}')" class="w-7 h-7 rounded-full flex items-center justify-center bg-vercelBlack text-white hover:bg-neutral-700 font-extrabold transition-all text-[11px] hover:scale-105 shadow-sm inner-highlight">
-                                        \${count}
+                                    <button onclick="openDrawer(${source.id}, '${day.isoStr}', '${source.name}')" class="w-7 h-7 rounded-full flex items-center justify-center bg-vercelBlack text-white hover:bg-neutral-700 font-extrabold transition-all text-[11px] hover:scale-105 shadow-sm inner-highlight">
+                                        ${count}
                                     </button>
                                 </div>
                             </td>
                         `;
                     } else {
-                        return `<td class="px-2 py-3 border-r border-neutral-100 align-middle text-vercelGray400 text-[11px]">\${checkedMarkup}</td>`;
+                        return `<td class="px-2 py-3 border-r border-neutral-100 align-middle text-vercelGray400 text-[11px]">${checkedMarkup}</td>`;
                     }
                 }).join('');
 
                 return `
                     <tr class="hover:bg-neutral-50/50 transition-colors">
                         <td class="px-6 py-3 border-r border-neutral-100 text-left font-bold text-vercelBlack max-w-[240px] truncate">
-                            \${source.name}
-                            <span class="block text-[9px] text-vercelGray500 uppercase font-bold mt-0.5 tracking-wide">\${source.category}</span>
+                            ${source.name}
+                            <span class="block text-[9px] text-vercelGray500 uppercase font-bold mt-0.5 tracking-wide">${source.category}</span>
                         </td>
-                        \${columnsHtml}
+                        ${columnsHtml}
                     </tr>
                 `;
             }).join('');
         }
 
-        // Slide-Over Drawer Drawer Controls
+        // Slide-Over Drawer Controls
         function openDrawer(sourceId, isoDate, sourceName) {
             const drawer = document.getElementById('drawer-panel');
             const backdrop = document.getElementById('drawer-backdrop');
@@ -401,7 +400,7 @@
             const dayFindings = findings.filter(f => f.source_id === sourceId && f.extracted_at.substring(0, 10) === isoDate);
 
             // Set labels
-            drawerDateLabel.innerText = `RECONNAISSANCE · \${isoDate} KST`;
+            drawerDateLabel.innerText = `RECONNAISSANCE · ${isoDate} KST`;
             drawerSourceName.innerText = sourceName;
 
             if (dayFindings.length === 0) {
@@ -411,18 +410,18 @@
                     <div class="border-b border-neutral-100 pb-5 last:border-0 last:pb-0">
                         <div class="flex items-center space-x-2 mb-2">
                             <span class="bg-neutral-100 border border-neutral-200 text-[9px] font-bold px-2 py-0.5 rounded text-vercelGray600 uppercase">
-                                \${item.source_type || 'FINDING'}
+                                ${item.source_type || 'FINDING'}
                             </span>
-                            <span class="text-[10px] text-vercelGray400 font-medium">\${item.extracted_at.substring(11, 16)} 수집</span>
+                            <span class="text-[10px] text-vercelGray400 font-medium">${item.extracted_at.substring(11, 16)} 수집</span>
                         </div>
                         <h4 class="text-sm font-extrabold text-vercelBlack mb-1 leading-snug">
-                            <a href="\${item.url}" target="_blank" class="text-accentBlue hover:underline flex items-center">
-                                <span>\${item.title}</span> <span class="text-[9px] ml-1">🔗</span>
+                            <a href="${item.url}" target="_blank" class="text-accentBlue hover:underline flex items-center">
+                                <span>${item.title}</span> <span class="text-[9px] ml-1">🔗</span>
                             </a>
                         </h4>
                         <div class="mt-3">
                             <h5 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1">📋 정찰 수확 요약 및 아키텍처 원리</h5>
-                            <pre class="bg-vercelGray50 p-3.5 rounded-lg text-[11px] text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">\${item.summary || '상세 정보가 존재하지 않습니다.'}</pre>
+                            <pre class="bg-vercelGray50 p-3.5 rounded-lg text-[11px] text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">${item.summary || '상세 정보가 존재하지 않습니다.'}</pre>
                         </div>
                     </div>
                 `).join('');
@@ -464,18 +463,18 @@
                     <div class="bg-white vercel-card-shadow rounded-xl p-6 flex flex-col justify-between">
                         <div>
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider \${badge}">
-                                    \${item.category || 'N/A'}
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${badge}">
+                                    ${item.category || 'N/A'}
                                 </span>
                                 <span class="text-[11px] font-bold text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200/50">
-                                    ⭐ IMPACT: \${item.architectural_impact_score || 0} / 10
+                                    ⭐ IMPACT: ${item.architectural_impact_score || 0} / 10
                                 </span>
                             </div>
-                            <h3 class="text-lg sm:text-xl font-bold text-vercelBlack tracking-tight mb-2">\${item.title}</h3>
+                            <h3 class="text-lg sm:text-xl font-bold text-vercelBlack tracking-tight mb-2">${item.title}</h3>
                             <div class="text-[11px] text-vercelGray500 mb-5 flex items-center space-x-2">
-                                <span>발견일: \${item.discovered_at}</span>
+                                <span>발견일: ${item.discovered_at}</span>
                                 <span>|</span>
-                                <a href="\${item.source_url}" target="_blank" class="text-accentBlue hover:underline font-medium flex items-center">
+                                <a href="${item.source_url}" target="_blank" class="text-accentBlue hover:underline font-medium flex items-center">
                                     <span>원본 뷰어</span> <span class="text-[9px] ml-0.5">🔗</span>
                                 </a>
                             </div>
@@ -484,12 +483,12 @@
                             <div class="space-y-4">
                                 <div>
                                     <h4 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1.5">🛠️ 작동 메커니즘 (Mechanism)</h4>
-                                    <pre class="bg-vercelGray50 p-4 rounded-lg text-xs text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">\${item.mechanism}</pre>
+                                    <pre class="bg-vercelGray50 p-4 rounded-lg text-xs text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">${item.mechanism}</pre>
                                 </div>
-                                \${item.js_relevance_context ? `
+                                ${item.js_relevance_context ? `
                                 <div>
                                     <h4 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1.5">💡 재솔님 연구 맥락 (Isomorphism Context)</h4>
-                                    <p class="text-xs text-vercelGray600 bg-neutral-50 p-4 rounded-lg border border-neutral-200/50 leading-relaxed">\${item.js_relevance_context}</p>
+                                    <p class="text-xs text-vercelGray600 bg-neutral-50 p-4 rounded-lg border border-neutral-200/50 leading-relaxed">${item.js_relevance_context}</p>
                                 </div>` : ''}
                             </div>
                         </div>
@@ -506,15 +505,15 @@
             }
             tbody.innerHTML = data.map(item => `
                 <tr class="hover:bg-neutral-50/50 transition-colors">
-                    <td class="px-6 py-4 font-bold text-vercelBlack whitespace-nowrap">\${item.source_name || 'Unknown'}</td>
+                    <td class="px-6 py-4 font-bold text-vercelBlack whitespace-nowrap">${item.source_name || 'Unknown'}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-0.5 rounded text-[10px] bg-neutral-100 border border-neutral-200/50 text-vercelGray600 font-semibold uppercase">\${item.source_category || 'N/A'}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-neutral-100 border border-neutral-200/50 text-vercelGray600 font-semibold uppercase">${item.source_category || 'N/A'}</span>
                     </td>
                     <td class="px-6 py-4 max-w-xs sm:max-w-md">
-                        <a href="\${item.url}" target="_blank" class="text-accentBlue hover:underline font-semibold block truncate">\${item.title}</a>
+                        <a href="${item.url}" target="_blank" class="text-accentBlue hover:underline font-semibold block truncate">${item.title}</a>
                     </td>
-                    <td class="px-6 py-4 text-vercelGray600 max-w-sm leading-relaxed">\${item.summary || 'Summary not available.'}</td>
-                    <td class="px-6 py-4 text-right text-[10px] text-vercelGray500 whitespace-nowrap">\${item.extracted_at}</td>
+                    <td class="px-6 py-4 text-vercelGray600 max-w-sm leading-relaxed">${item.summary || 'Summary not available.'}</td>
+                    <td class="px-6 py-4 text-right text-[10px] text-vercelGray500 whitespace-nowrap">${item.extracted_at}</td>
                 </tr>
             `).join('');
         }
@@ -532,30 +531,30 @@
                     <div class="bg-white vercel-border rounded-xl p-4 flex flex-col justify-between shadow-sm">
                         <div>
                             <div class="flex items-center justify-between gap-2 mb-2">
-                                <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase border \${statusBadge}">
-                                    \${item.status || 'inactive'}
+                                <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase border ${statusBadge}">
+                                    ${item.status || 'inactive'}
                                 </span>
-                                <span class="text-[9px] text-vercelGray500 uppercase font-bold">\${item.category || 'N/A'}</span>
+                                <span class="text-[9px] text-vercelGray500 uppercase font-bold">${item.category || 'N/A'}</span>
                             </div>
-                            <h3 class="font-bold text-vercelBlack text-sm mb-1 truncate">\${item.name}</h3>
-                            <a href="\${item.url}" target="_blank" class="text-[10px] text-accentBlue hover:underline truncate block mb-3">\${item.url}</a>
+                            <h3 class="font-bold text-vercelBlack text-sm mb-1 truncate">${item.name}</h3>
+                            <a href="${item.url}" target="_blank" class="text-[10px] text-accentBlue hover:underline truncate block mb-3">${item.url}</a>
                         </div>
                         <div class="border-t border-neutral-100 pt-3 mt-2 grid grid-cols-3 gap-2 text-center text-[10px] text-vercelGray500">
                             <div>
                                 <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">중요도</span>
-                                <span class="font-bold text-vercelBlack">\${'•'.repeat(item.priority || 0)}</span>
+                                <span class="font-bold text-vercelBlack">${'•'.repeat(item.priority || 0)}</span>
                             </div>
                             <div>
                                 <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">성공수</span>
-                                <span class="font-bold text-vercelBlack">\${item.success_count || 0}</span>
+                                <span class="font-bold text-vercelBlack">${item.success_count || 0}</span>
                             </div>
                             <div>
                                 <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">원더수</span>
-                                <span class="font-bold text-vercelBlack">\${item.wonder_count || 0}</span>
+                                <span class="font-bold text-vercelBlack">${item.wonder_count || 0}</span>
                             </div>
                         </div>
                         <div class="text-[9px] text-vercelGray400 mt-2.5 text-right">
-                            최근 확인: \${item.last_checked_at || 'Never'}
+                            최근 확인: ${item.last_checked_at || 'Never'}
                         </div>
                     </div>
                 `;
