@@ -69,7 +69,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col pb-16">
+<body class="min-h-screen flex flex-col pb-16 relative overflow-x-hidden">
 
     <!-- Top Info Bar -->
     <div class="bg-vercelBlack text-white text-[11px] font-medium py-1.5 px-4 tracking-wider uppercase flex items-center justify-between">
@@ -81,7 +81,7 @@
     </div>
 
     <!-- Sticky Header -->
-    <nav class="bg-white/80 backdrop-blur sticky top-0 z-40 vercel-border border-b border-transparent">
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-30 vercel-border border-b border-transparent">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2.5">
                 <span class="text-xl">🛰️</span>
@@ -89,7 +89,7 @@
             </div>
             <div class="text-[12px] text-vercelGray600 flex items-center space-x-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
-                <span>마지막 갱신: <span class="text-vercelBlack font-semibold">2026-05-30 03:05:51 KST</span></span>
+                <span>마지막 갱신: <span class="text-vercelBlack font-semibold">2026-05-30 03:07:25 KST</span></span>
             </div>
         </div>
     </nav>
@@ -137,6 +137,9 @@
                 </button>
                 <button onclick="switchTab('findings')" id="tab-findings" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150">
                     🗺️ 글로벌 신호 지도 (전체)
+                </button>
+                <button onclick="switchTab('matrix')" id="tab-matrix" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150">
+                    📊 정찰 매트릭스 (Excel)
                 </button>
                 <button onclick="switchTab('sources')" id="tab-sources" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150">
                     📡 정보원 상태 (Sources)
@@ -192,6 +195,41 @@
             </div>
         </section>
 
+        <!-- Panel: Matrix (Excel-style Grid) -->
+        <section id="panel-matrix" class="hidden space-y-6">
+            <div class="border-b border-neutral-100 pb-3 mb-2 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-vercelBlack flex items-center space-x-2">
+                    <span class="text-md">📊</span> <span>정찰 매트릭스 보드 (Source × Date Matrix)</span>
+                </h2>
+                <div class="flex items-center space-x-4 text-[10px] font-bold text-vercelGray500 uppercase tracking-wider">
+                    <span class="flex items-center space-x-1"><span class="w-2 h-2 rounded-full bg-vercelBlack inline-block"></span> <span>숫자: 신규 수확물</span></span>
+                    <span class="flex items-center space-x-1"><span class="text-emerald-500 font-bold">✓</span> <span>체크: 정찰 완료 (이상 없음)</span></span>
+                    <span class="flex items-center space-x-1"><span>—</span> <span>대시: 정찰 휴지기</span></span>
+                </div>
+            </div>
+            
+            <p class="text-xs text-vercelGray600 leading-relaxed max-w-4xl mb-4">
+                엑셀과 동일한 입체적 2차원 매트릭스로 최근 7일간의 수색 무결성을 한눈에 보여줍니다. 
+                <strong>새로운 수확물이 포착된 숫자 셀(검은색 둥근 배지)을 클릭</strong>하시면 우측에서 상세정보 드로어 패널이 활성화되어 즉시 브라우징할 수 있습니다.
+            </p>
+
+            <div class="bg-white vercel-border rounded-xl overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-neutral-100 text-center text-xs border-collapse">
+                        <thead class="bg-neutral-50 text-[10px] uppercase font-bold text-vercelGray500 tracking-wider">
+                            <tr id="matrix-header-row">
+                                <th class="px-6 py-4 text-left border-r border-neutral-100 min-w-[220px]">정보 소스 (Source Name)</th>
+                                <!-- Dynamic Date Headers go here -->
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-table-body" class="divide-y divide-neutral-100 bg-white">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
         <!-- Panel: Sources -->
         <section id="panel-sources" class="hidden space-y-6">
             <h2 class="text-lg font-bold text-vercelBlack flex items-center space-x-2 border-b border-neutral-100 pb-3">
@@ -202,6 +240,31 @@
             </div>
         </section>
     </main>
+
+    <!-- Slide-Over Drawer Backdrop Overlay -->
+    <div id="drawer-backdrop" onclick="closeDrawer()" class="fixed inset-0 bg-neutral-900/10 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 ease-out"></div>
+
+    <!-- Slide-Over Drawer Panel (Vercel-style) -->
+    <div id="drawer-panel" class="fixed top-0 right-0 h-full w-[450px] max-w-full bg-white shadow-2xl border-l border-neutral-200 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-neutral-100 flex items-center justify-between bg-neutral-50">
+            <div>
+                <span class="text-[10px] font-bold text-vercelGray500 uppercase tracking-wider" id="drawer-date-label">DATE DETECTED</span>
+                <h3 class="text-md font-extrabold text-vercelBlack tracking-tight mt-0.5" id="drawer-source-name">Source Name</h3>
+            </div>
+            <button onclick="closeDrawer()" class="w-8 h-8 rounded-full border border-neutral-200 hover:border-vercelBlack text-vercelGray600 hover:text-vercelBlack flex items-center justify-center text-lg transition-all focus:outline-none">
+                &times;
+            </button>
+        </div>
+        <!-- Drawer Content -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-6" id="drawer-content">
+            <!-- Dynamic Inject -->
+        </div>
+        <!-- Drawer Footer -->
+        <div class="p-6 border-t border-neutral-100 bg-neutral-50 text-[10px] text-vercelGray500 font-medium tracking-wide text-center">
+            DETERMINISTIC KNOWLEDGE SCOUTING PLATFORM · HERMES SECURE
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="max-w-7xl mx-auto w-full px-6 border-t border-neutral-100 mt-16 pt-8 text-center text-[11px] text-vercelGray500 font-medium">
@@ -218,7 +281,7 @@
 
         function switchTab(tabId) {
             activeTab = tabId;
-            ['wonders', 'findings', 'sources'].forEach(t => {
+            ['wonders', 'findings', 'matrix', 'sources'].forEach(t => {
                 const btn = document.getElementById('tab-' + t);
                 const panel = document.getElementById('panel-' + t);
                 if (t === tabId) {
@@ -240,6 +303,155 @@
             return 'bg-purple-50 text-purple-600 border border-purple-100';
         }
 
+        // Dynamic Dates Calculation (Last 7 Days)
+        function getLast7Days() {
+            const dates = [];
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                // Shift to KST (if user is in KST, this will keep accurate offset)
+                d.setDate(d.getDate() - i);
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                const dayName = dayNames[d.getDay()];
+                
+                dates.push({
+                    key: `\${year}-\${month}-\ \${day}`.replace('\ ', ''), // split escape representation safely
+                    display: `\${month}.\${day} (\${dayName})`,
+                    isoStr: `\${year}-\${month}-\${day}`
+                });
+            }
+            return dates;
+        }
+
+        const last7Days = getLast7Days();
+
+        // Render Matrix Table
+        function buildAndRenderMatrix() {
+            const headerRow = document.getElementById('matrix-header-row');
+            const tbody = document.getElementById('matrix-table-body');
+            
+            // Generate Headers if not already done
+            if (headerRow.children.length === 1) {
+                last7Days.forEach(day => {
+                    const th = document.createElement('th');
+                    th.className = "px-4 py-4 border-r border-neutral-100 font-bold text-center text-vercelGray500 min-w-[90px]";
+                    th.innerText = day.display;
+                    headerRow.appendChild(th);
+                });
+            }
+
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filteredSources = sources.filter(s => s.name.toLowerCase().includes(query) || s.category.toLowerCase().includes(query));
+
+            if (filteredSources.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="\${last7Days.length + 1}" class="text-center py-16 text-vercelGray500 bg-white text-xs">매트릭스 검색 결과가 없습니다.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filteredSources.map(source => {
+                const columnsHtml = last7Days.map(day => {
+                    // Count findings for this source on this day
+                    const dayFindings = findings.filter(f => f.source_id === source.id && f.extracted_at.substring(0, 10) === day.isoStr);
+                    const count = dayFindings.length;
+                    
+                    // Check if checked on this day
+                    let checkedMarkup = "—";
+                    if (source.last_checked_at && source.last_checked_at.substring(0, 10) === day.isoStr) {
+                        checkedMarkup = `<span class="text-emerald-500 font-bold" title="마지막 확인시각: \${source.last_checked_at}">✓</span>`;
+                    }
+
+                    if (count > 0) {
+                        return `
+                            <td class="px-2 py-3 border-r border-neutral-100 align-middle">
+                                <div class="flex items-center justify-center">
+                                    <button onclick="openDrawer(\${source.id}, '\${day.isoStr}', '\${source.name}')" class="w-7 h-7 rounded-full flex items-center justify-center bg-vercelBlack text-white hover:bg-neutral-700 font-extrabold transition-all text-[11px] hover:scale-105 shadow-sm inner-highlight">
+                                        \${count}
+                                    </button>
+                                </div>
+                            </td>
+                        `;
+                    } else {
+                        return `<td class="px-2 py-3 border-r border-neutral-100 align-middle text-vercelGray400 text-[11px]">\${checkedMarkup}</td>`;
+                    }
+                }).join('');
+
+                return `
+                    <tr class="hover:bg-neutral-50/50 transition-colors">
+                        <td class="px-6 py-3 border-r border-neutral-100 text-left font-bold text-vercelBlack max-w-[240px] truncate">
+                            \${source.name}
+                            <span class="block text-[9px] text-vercelGray500 uppercase font-bold mt-0.5 tracking-wide">\${source.category}</span>
+                        </td>
+                        \${columnsHtml}
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Slide-Over Drawer Drawer Controls
+        function openDrawer(sourceId, isoDate, sourceName) {
+            const drawer = document.getElementById('drawer-panel');
+            const backdrop = document.getElementById('drawer-backdrop');
+            const drawerDateLabel = document.getElementById('drawer-date-label');
+            const drawerSourceName = document.getElementById('drawer-source-name');
+            const drawerContent = document.getElementById('drawer-content');
+
+            // Find findings for this date and source
+            const dayFindings = findings.filter(f => f.source_id === sourceId && f.extracted_at.substring(0, 10) === isoDate);
+
+            // Set labels
+            drawerDateLabel.innerText = `RECONNAISSANCE · \${isoDate} KST`;
+            drawerSourceName.innerText = sourceName;
+
+            if (dayFindings.length === 0) {
+                drawerContent.innerHTML = `<div class="text-center py-12 text-vercelGray500 text-xs">포착된 정보 내역이 없습니다.</div>`;
+            } else {
+                drawerContent.innerHTML = dayFindings.map((item, idx) => `
+                    <div class="border-b border-neutral-100 pb-5 last:border-0 last:pb-0">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="bg-neutral-100 border border-neutral-200 text-[9px] font-bold px-2 py-0.5 rounded text-vercelGray600 uppercase">
+                                \${item.source_type || 'FINDING'}
+                            </span>
+                            <span class="text-[10px] text-vercelGray400 font-medium">\${item.extracted_at.substring(11, 16)} 수집</span>
+                        </div>
+                        <h4 class="text-sm font-extrabold text-vercelBlack mb-1 leading-snug">
+                            <a href="\${item.url}" target="_blank" class="text-accentBlue hover:underline flex items-center">
+                                <span>\${item.title}</span> <span class="text-[9px] ml-1">🔗</span>
+                            </a>
+                        </h4>
+                        <div class="mt-3">
+                            <h5 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1">📋 정찰 수확 요약 및 아키텍처 원리</h5>
+                            <pre class="bg-vercelGray50 p-3.5 rounded-lg text-[11px] text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">\${item.summary || '상세 정보가 존재하지 않습니다.'}</pre>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Slide out
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+                drawer.classList.add('translate-x-0');
+            }, 10);
+        }
+
+        function closeDrawer() {
+            const drawer = document.getElementById('drawer-panel');
+            const backdrop = document.getElementById('drawer-backdrop');
+
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            drawer.classList.remove('translate-x-0');
+            drawer.classList.add('translate-x-full');
+
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
         function renderWonders(data) {
             const container = document.getElementById('wonders-container');
             if (data.length === 0) {
@@ -252,7 +464,7 @@
                     <div class="bg-white vercel-card-shadow rounded-xl p-6 flex flex-col justify-between">
                         <div>
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${badge}">
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider \${badge}">
                                     \${item.category || 'N/A'}
                                 </span>
                                 <span class="text-[11px] font-bold text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200/50">
@@ -367,6 +579,8 @@
                     (f.source_name || '').toLowerCase().includes(query)
                 );
                 renderFindings(filtered);
+            } else if (activeTab === 'matrix') {
+                buildAndRenderMatrix();
             } else if (activeTab === 'sources') {
                 const filtered = sources.filter(s => 
                     s.name.toLowerCase().includes(query) || 
