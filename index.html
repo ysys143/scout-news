@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,141 +8,174 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0f172a',
-                        darkCard: '#1e293b',
-                        neonGreen: '#10b981',
-                        neonBlue: '#3b82f6',
-                        neonOrange: '#f97316'
+                        vercelBlack: '#171717',
+                        vercelGray900: '#171717',
+                        vercelGray600: '#4d4d4d',
+                        vercelGray500: '#666666',
+                        vercelGray400: '#808080',
+                        vercelGray100: '#ebebeb',
+                        vercelGray50: '#fafafa',
+                        accentBlue: '#0072f5'
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Pretendard:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
         body {
-            font-family: 'Pretendard', -apple-system, sans-serif;
-            background-color: #0b0f19;
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fcfcfc;
+            color: #171717;
+            letter-spacing: -0.015em;
         }
         code, pre {
-            font-family: 'Fira Code', monospace;
+            font-family: 'JetBrains Mono', monospace;
         }
-        /* Beautiful scrollbar */
+        
+        /* Premium shadow-as-border styling for maximum Vercel minimalism */
+        .vercel-border {
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+        }
+        .vercel-card-shadow {
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 16px -8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .vercel-card-shadow:hover {
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04), 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+        .inner-highlight {
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Modern scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: #f5f5f5;
         }
         ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
+            background: #d4d4d8;
+            border-radius: 99px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: #a1a1aa;
         }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen flex flex-col pb-12">
+<body class="min-h-screen flex flex-col pb-16">
 
-    <!-- Navbar -->
-    <nav class="border-b border-slate-800 bg-[#0f172a]/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <span class="text-2xl">🛰️</span>
-                <span class="font-bold text-lg tracking-wider bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">HERMES SCOUT-NEWS</span>
+    <!-- Top Info Bar -->
+    <div class="bg-vercelBlack text-white text-[11px] font-medium py-1.5 px-4 tracking-wider uppercase flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+            <span>HERMES SYSTEM SECURE PIPELINE ACTIVE</span>
+        </div>
+        <div class="hidden sm:block">STATUS: DETERMINISTIC SWEEP OK</div>
+    </div>
+
+    <!-- Sticky Header -->
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-40 vercel-border border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2.5">
+                <span class="text-xl">🛰️</span>
+                <span class="font-bold text-[15px] tracking-wider uppercase text-vercelBlack">HERMES SCOUT</span>
             </div>
-            <div class="text-xs text-slate-400">
-                마지막 갱신: <span class="text-emerald-400 font-semibold">2026-05-30 01:47:00 KST</span>
+            <div class="text-[12px] text-vercelGray600 flex items-center space-x-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
+                <span>마지막 갱신: <span class="text-vercelBlack font-semibold">2026-05-30 03:05:51 KST</span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Header & Statistics -->
-    <header class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-8">
-        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
-            <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">헤르메스 정찰 현황판 (Scout-News Dashboard) 🍃</h1>
-            <p class="text-slate-400 text-sm sm:text-base max-w-3xl">
-                가벼운 전체 글로벌 지도 구성과 심층 분석(Hermes Standard)의 2단계 Triage 체계로 수집된 기술 소스들의 실시간 모니터링 현황입니다.
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto w-full px-6 mt-12 mb-10">
+        <div class="border-b border-neutral-100 pb-8">
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tighter text-vercelBlack mb-3 leading-none">
+                정찰 종합 현황판 (Scout-News Dashboard) 🍃
+            </h1>
+            <p class="text-vercelGray600 text-sm sm:text-md max-w-3xl leading-relaxed">
+                전방위 스키밍을 통해 수집한 글로벌 기술 소스들의 실시간 모니터링 안테나입니다. 가벼운 전체 수확물 목록을 조감하고, 중요도/주목도 등급에 따라 엄선된 고해상도 지식을 선별 탐색할 수 있습니다.
             </p>
             
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 flex flex-col justify-between">
-                    <span class="text-xs text-slate-400 font-medium">💎 선별 원더 엘리먼트</span>
-                    <span class="text-3xl font-extrabold text-amber-400 mt-1">35 <span class="text-xs font-normal text-slate-500">개</span></span>
+            <!-- Statistics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-white vercel-card-shadow rounded-xl p-5 flex flex-col justify-between">
+                    <span class="text-[11px] text-vercelGray500 font-bold uppercase tracking-wider">💎 선별 원더 엘리먼트</span>
+                    <span class="text-3xl font-extrabold text-vercelBlack mt-2 tracking-tight">35 <span class="text-xs font-normal text-vercelGray500">개</span></span>
                 </div>
-                <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 flex flex-col justify-between">
-                    <span class="text-xs text-slate-400 font-medium">🗺️ 오늘 수집 신호 (Findings)</span>
-                    <span class="text-3xl font-extrabold text-emerald-400 mt-1">29 <span class="text-xs font-normal text-slate-500">개</span></span>
+                <div class="bg-white vercel-card-shadow rounded-xl p-5 flex flex-col justify-between">
+                    <span class="text-[11px] text-vercelGray500 font-bold uppercase tracking-wider">🗺️ 오늘 수집 신호 (Findings)</span>
+                    <span class="text-3xl font-extrabold text-vercelBlack mt-2 tracking-tight">29 <span class="text-xs font-normal text-vercelGray500">개</span></span>
                 </div>
-                <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 flex flex-col justify-between">
-                    <span class="text-xs text-slate-400 font-medium">📡 등록 정보원 (Sources)</span>
-                    <span class="text-3xl font-extrabold text-cyan-400 mt-1">108 <span class="text-xs font-normal text-slate-500">개</span></span>
+                <div class="bg-white vercel-card-shadow rounded-xl p-5 flex flex-col justify-between">
+                    <span class="text-[11px] text-vercelGray500 font-bold uppercase tracking-wider">📡 등록 정보원 (Sources)</span>
+                    <span class="text-3xl font-extrabold text-vercelBlack mt-2 tracking-tight">108 <span class="text-xs font-normal text-vercelGray500">개</span></span>
                 </div>
-                <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 flex flex-col justify-between">
-                    <span class="text-xs text-slate-400 font-medium">🟢 활성 정보원 비율</span>
-                    <span class="text-3xl font-extrabold text-purple-400 mt-1">108 / 108</span>
+                <div class="bg-white vercel-card-shadow rounded-xl p-5 flex flex-col justify-between">
+                    <span class="text-[11px] text-vercelGray500 font-bold uppercase tracking-wider">🟢 활성 정보원 현황</span>
+                    <span class="text-3xl font-extrabold text-vercelBlack mt-2 tracking-tight">108 <span class="text-xs font-normal text-vercelGray500">/ 108</span></span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-8 flex-grow">
-        <!-- Controls & Search -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-xl shadow-md mb-6">
-            <!-- Tabs -->
-            <div class="flex space-x-1 border-b border-slate-800 md:border-none">
-                <button onclick="switchTab('wonders')" id="tab-wonders" class="px-4 py-2 text-sm font-semibold rounded-lg bg-emerald-500 text-white transition-all">
+    <!-- Main Section -->
+    <main class="max-w-7xl mx-auto w-full px-6 flex-grow">
+        <!-- Control Box (Segmented Tab + Search) -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white vercel-border rounded-xl p-3 shadow-sm mb-8">
+            <!-- Segmented Control (Apple / Vercel style) -->
+            <div class="bg-neutral-100 p-1 rounded-lg flex space-x-1 w-full md:w-auto">
+                <button onclick="switchTab('wonders')" id="tab-wonders" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md bg-white text-vercelBlack shadow-sm transition-all duration-150">
                     💎 원더 엘리먼트 (심층 분석)
                 </button>
-                <button onclick="switchTab('findings')" id="tab-findings" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+                <button onclick="switchTab('findings')" id="tab-findings" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150">
                     🗺️ 글로벌 신호 지도 (전체)
                 </button>
-                <button onclick="switchTab('sources')" id="tab-sources" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+                <button onclick="switchTab('sources')" id="tab-sources" class="flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150">
                     📡 정보원 상태 (Sources)
                 </button>
             </div>
-            <!-- Search -->
+            <!-- Search input -->
             <div class="relative w-full md:w-80">
-                <input type="text" id="searchInput" oninput="searchData()" placeholder="키워드, 소스, 제목 검색..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 placeholder-slate-500 transition-all">
+                <input type="text" id="searchInput" oninput="searchData()" placeholder="키워드, 소스, 제목 검색..." class="w-full bg-vercelGray50 border border-neutral-200 rounded-lg px-4 py-2 text-xs text-vercelBlack focus:outline-none focus:border-vercelBlack focus:bg-white transition-all placeholder-vercelGray400">
             </div>
         </div>
 
-        <!-- Tab Panel: Wonder Elements -->
+        <!-- Panel: Wonder Elements -->
         <section id="panel-wonders" class="space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-                    <span>💎</span> <span>엄선된 고해상도 아키텍처 추출본 (35개)</span>
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-3 mb-2">
+                <h2 class="text-lg font-bold text-vercelBlack flex items-center space-x-2">
+                    <span class="text-md">💎</span> <span>엄선된 고해상도 아키텍처 추출본 (35개)</span>
                 </h2>
-                <div class="flex space-x-2 text-xs">
-                    <span class="px-2 py-1 rounded bg-red-950/40 border border-red-900/50 text-red-400">Paper</span>
-                    <span class="px-2 py-1 rounded bg-amber-950/40 border border-amber-900/50 text-amber-400">Tool</span>
-                    <span class="px-2 py-1 rounded bg-blue-950/40 border border-blue-900/50 text-blue-400">Ops/Infra</span>
-                    <span class="px-2 py-1 rounded bg-purple-950/40 border border-purple-900/50 text-purple-400">Pedagogy</span>
+                <div class="flex space-x-1.5 text-[10px] font-bold uppercase tracking-wider">
+                    <span class="px-2 py-0.5 rounded bg-neutral-100 text-vercelGray600 vercel-border">Paper</span>
+                    <span class="px-2 py-0.5 rounded bg-neutral-100 text-vercelGray600 vercel-border">Tool</span>
+                    <span class="px-2 py-0.5 rounded bg-neutral-100 text-vercelGray600 vercel-border">Ops/Infra</span>
+                    <span class="px-2 py-0.5 rounded bg-neutral-100 text-vercelGray600 vercel-border">Pedagogy</span>
                 </div>
             </div>
             
             <div id="wonders-container" class="grid grid-cols-1 gap-6">
-                <!-- Javascript will inject items here -->
+                <!-- JS Inject -->
             </div>
         </section>
 
-        <!-- Tab Panel: Findings -->
+        <!-- Panel: Findings -->
         <section id="panel-findings" class="hidden space-y-6">
-            <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-                <span>🗺️</span> <span>글로벌 신호 지도 - 전체 스킹 내역 (29개)</span>
+            <h2 class="text-lg font-bold text-vercelBlack flex items-center space-x-2 border-b border-neutral-100 pb-3">
+                <span class="text-md">🗺️</span> <span>글로벌 신호 지도 - 전체 스킹 내역 (29개)</span>
             </h2>
-            <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-md">
+            <div class="bg-white vercel-border rounded-xl overflow-hidden shadow-sm">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-slate-800 text-left text-sm">
-                        <thead class="bg-slate-950 text-xs uppercase text-slate-400 tracking-wider">
+                    <table class="min-w-full divide-y divide-neutral-100 text-left text-xs">
+                        <thead class="bg-neutral-50 text-[10px] uppercase font-bold text-vercelGray500 tracking-wider">
                             <tr>
                                 <th class="px-6 py-4">출처 (Source)</th>
                                 <th class="px-6 py-4">유형</th>
@@ -151,31 +184,31 @@
                                 <th class="px-6 py-4 text-right">수집 시각</th>
                             </tr>
                         </thead>
-                        <tbody id="findings-table-body" class="divide-y divide-slate-800 bg-slate-900/50">
-                            <!-- Javascript will inject rows here -->
+                        <tbody id="findings-table-body" class="divide-y divide-neutral-100 bg-white">
+                            <!-- JS Inject -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- Tab Panel: Sources -->
+        <!-- Panel: Sources -->
         <section id="panel-sources" class="hidden space-y-6">
-            <h2 class="text-xl font-bold text-white flex items-center space-x-2">
-                <span>📡</span> <span>정보원 정찰 모니터링 상태 (108개)</span>
+            <h2 class="text-lg font-bold text-vercelBlack flex items-center space-x-2 border-b border-neutral-100 pb-3">
+                <span class="text-md">📡</span> <span>정보원 정찰 모니터링 상태 (108개)</span>
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="sources-container">
-                <!-- Javascript will inject source cards here -->
+                <!-- JS Inject -->
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 border-t border-slate-800 mt-12 pt-6 text-center text-xs text-slate-500">
-        <p>Hermes Auto-Generated Technical Scouting Dashboard. Grounded in Single Source of Truth.</p>
+    <footer class="max-w-7xl mx-auto w-full px-6 border-t border-neutral-100 mt-16 pt-8 text-center text-[11px] text-vercelGray500 font-medium">
+        <p>HERMES AUTOMATIC TECHNICAL SCOUTING PORTAL. BUILT DETERMINISTICALLY UNDER MONOCHROME GUIDELINES.</p>
     </footer>
 
-    <!-- Data Injection & Client-Side JS -->
+    <!-- Client-Side Javascript -->
     <script>
         const wonders = [{"id": 35, "title": "Bit-Deterministic GPU Acceleration via p-Adic Arithmetic", "mechanism": "Replaces traditional floating-point arithmetic (IEEE 754) with p-adic number representation (p-adic valuation and metrics) in parallel GPU kernels. Implements a p-adic tree structure where coordinates are stored as power series coefficients, converting division and transcendental operations into simple digit shifts. This mathematically eliminates floating-point precision drift and rounding errors across parallel execution threads, guaranteeing 100% bit-deterministic reproducibility of physical states and visual rendering regardless of GPU hardware, driver, or scheduling variations.", "category": "MLOps / GPU Acceleration", "source_url": "https://news.hada.io/topic?id=29994", "js_relevance_context": "Directly aligns with Jaesol's research in deterministic execution and GPU resource supply chains. In multi-agent environments or distributed training (like WorldLoops), eliminating precision drift at the hardware level ensures that execution traces are perfectly reproducible, enabling a truly robust, deterministic governance layer.", "architectural_impact_score": 9, "discovered_at": "2026-05-30 09:00:00"}, {"id": 29, "title": "Configuring a Switchless B300 Cluster", "mechanism": "DGX B300 OSFP ConnectX-8 ports (each 800G OSFP port internally splits to two 400G interfaces, total 16x 400G interfaces per node) are forced into Ethernet mode using mlxconfig. Directly cables DGX nodes in a full-mesh topology with standard Direct Attach Copper (DAC) cables, creating point-to-point /30 subnets (IP scheme: 10.1[ServerA][ServerB].[Link].[CableEnd]) with Jumbo Frames (MTU 9000). Bypasses the need for costly 800G physical network switches (which suffer from major lead times and high transceiver costs) while utilizing RoCE v2 for low-latency direct RDMA inter-node GPU-to-GPU communication.", "category": "MLOps / GPU Infrastructure", "source_url": "https://blog.sionic.ai/dgx-b300-direct", "js_relevance_context": "Directly applicable to GPU Resource Supply Chain and high-performance decentralized training environments. Avoids standard lead times of 800G switches and drops cabling cost to 1/10 to 1/20.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T08:05:33.442288"}, {"id": 30, "title": "Container Sandboxing Strategy for Agent Workloads (gVisor nvproxy)", "mechanism": "Isolates untrusted execution environments using Google gVisor (Sentry user-space kernel and Gofer file-I/O broker) instead of traditional runc or heavy VM-based Kata Containers. gVisor intercepts syscalls, translating them in user-space, passing only a strict 53-68 syscall list to host. Through nvproxy, it intercepts CUDA and NVML driver calls to execute PyTorch/CUDA workloads safely with nearly 0% execution overhead due to shared memory communication. This prevents SSRF (metadata hijacking) and path traversal exploits while retaining native GPU acceleration speed.", "category": "DevOps / Agent Security", "source_url": "https://blog.sionic.ai/agent-sandboxing-strategy", "js_relevance_context": "Highly relevant to 'WorldLoops' deterministic safety guardrails. Guarantees that arbitrary scripts generated by autonomous agents are compiled and run in a bulletproof sandbox without incurring GPU virtualization performance penalties.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T08:05:33.442288"}, {"id": 31, "title": "Centralized Enterprise Context Engineering over Federated MCP (Glean MCP Eval)", "mechanism": "Compares standard 'Federated Search' (independent API queries across Slack, Drive, Jira via multiple local MCP tools) against a 'Centralized Indexing & Knowledge Graph' (Glean's remote MCP). Under a standardized Claude Sonnet 4.6 harness, federated search forces heavy LLM reasoning loops to consolidate sparse context, leading to a 30% average 'Token Tax' and runaway reasoning loops that double token consumption (83k vs 43k tokens) for successful runs. Centralized indexing pre-structures semantic context to feed the model instantly, smoothing token overhead to a stable 43k baseline.", "category": "Context Engineering / Multi-Agent", "source_url": "https://www.glean.com/blog/cowork-mcp-eval", "js_relevance_context": "Crucial reference for 'Web Agent Harness' and multi-agent workflow economics. Proves that optimizing the context retrieval layer in a centralized vector/semantic database prior to model prompt injection is exponentially more cost-effective and accurate than relying on agentic brute-force search loops.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T08:05:33.442288"}, {"id": 19, "title": "vLLM Single-Node Prefill-Decode Disaggregation (MORI-IO)", "mechanism": "Separating prefill (compute-bound) and decode (memory-bandwidth-bound) phases on a single 8-GPU AMD Instinct MI300X node using AMD's MORI-IO RDMA-based connector. Achieves 2.5x higher goodput and eliminates Inter-Token Latency (ITL) spikes by resolving resource contention without cross-node KV cache transfer overhead.", "category": "Tools", "source_url": "https://vllm.ai/blog/2026-04-07-moriio-kv-connector", "js_relevance_context": "Deeply aligns with JS's 'Tiered KV Caching' and 'Inference-time Scaling' research, offering a concrete single-node physical infrastructure strategy to eliminate ITL spikes and latency variance under high load.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T00:05:02.910395"}, {"id": 20, "title": "Gamma-World: Simplex Rotary Agent Encoding (NVIDIA)", "mechanism": "A parameter-free extension of 3D Rotary Position Embedding (RoPE) that places agents at the vertices of a regular simplex in rotary angle space. Because all agents have equal pairwise distances, they are completely permutation-equivalent and distinct, enabling zero-shot generalization from two to four agents without additional training. Cross-agent attention complexity is reduced from quadratic to linear via 'Sparse Hub Attention' which routes interactions through learnable hub tokens.", "category": "Papers", "source_url": "https://arxiv.org/abs/2605.28816", "js_relevance_context": "Directly links to JS's 'Collective Predictive Coding' and 'MiroFish' multi-agent simulation sandbox, providing a mathematically sound mechanism for zero-shot scaling and O(N) communication complexity in swarms.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T00:05:02.910395"}, {"id": 21, "title": "AXPO: Agent eXplorative Policy Optimization (NVIDIA)", "mechanism": "A hybrid reinforcement learning framework that leverages memory-augmented states for structured exploration and combines fine-grained, step-level credit signals (per-step credit assignment) with on- and off-policy updates to prevent agents from falling into local 최적화 (recombination bias).", "category": "Papers", "source_url": "https://huggingface.co/papers/2605.28774", "js_relevance_context": "Deeply aligns with 'WorldLoops' and 'Web Agent Harness'. It provides a rigorous theoretical and empirical model for how structured step-level credit assignment scales agent performance during inference and prevents exploratory narrowness.", "architectural_impact_score": 9, "discovered_at": "2026-05-29T00:05:02.910395"}, {"id": 22, "title": "Decepticon: Monolithic uv-Workspace & Zero-Runtime-Dependency Contract Layer", "mechanism": "Refactoring an autonomous Red Team penetration testing agent into a three-package 'uv' workspace (decepticon-core, decepticon, decepticon-sdk). The decepticon-core package defines pure Pydantic types and standard library code with ZERO runtime dependencies on heavy frameworks (LangChain, HTTPX, etc.), statically enforced via Ruff 'TID251' (banned-api) and verified in CI, ensuring a perfectly stable and clean contract layer.", "category": "Tools", "source_url": "https://github.com/PurpleAILAB/Decepticon", "js_relevance_context": "Directly supports JS's 'Deterministic Safety' and 'Separation of Concerns' principles. It provides an engineering template for designing core agent platforms with minimal runtime dependencies to prevent context rot and version collision.", "architectural_impact_score": 8, "discovered_at": "2026-05-29T00:05:02.910395"}, {"id": 23, "title": "React Doctor: Deterministic Codebase Verifier & Agent Skill Integration", "mechanism": "A deterministic codebase scanner designed to audit React code for state, effects, performance, and architecture. It generates a 0-100 diagnostic score with actionable feedback, which can be instantly ingested by AI coding agents (Claude Code, Cursor, etc.) as an external 'skill' to prevent them from repeating the same architectural mistakes.", "category": "Tools", "source_url": "https://github.com/millionco/react-doctor", "js_relevance_context": "Validates the 'The Ralph-loop Sufficiency' (external deterministic verifiers multiplying agentic intelligence). Demonstrates how a domain-specific deterministic verifier can be packaged as a reusable agent 'skill' for continuous self-evolution.", "architectural_impact_score": 8, "discovered_at": "2026-05-29T00:05:02.910395"}, {"id": 24, "title": "Lighthouse Attention", "mechanism": "A selection-based hierarchical attention mechanism designed to drastically reduce computational overhead at extreme context lengths. It scales to 512K context with an impressive ~17x execution speedup over standard attention on a single NVIDIA B200 GPU.", "category": "tools", "source_url": "https://nousresearch.com/blog", "js_relevance_context": "Directly applicable to Tiered KV Caching & Inference-time Scaling. It provides a lightweight hierarchical routing mechanism to minimize GPU memory bandwidth and compute overhead during deep reasoning or multi-round agent interactions.", "architectural_impact_score": 9, "discovered_at": "2026-05-29 13:02:45"}, {"id": 25, "title": "Digital Red Queen (DRQ) & Core War", "mechanism": "An evolutionary algorithm that leverages LLMs to evolve assembly-like self-modifying code ('warriors') competing in a virtual computer arena (Core War) where code and data share the same address space. Simulating adversarial dynamics in a Turing-complete environment discovers robust, self-defending code strategies.", "category": "papers", "source_url": "https://sakana.ai/blog/", "js_relevance_context": "Connects directly to WorldLoops and deterministic safety. It demonstrates how code can evolve robust, adversarial defense mechanisms in a sandboxed, low-overhead virtual machine, providing a template for self-healing agent runtimes.", "architectural_impact_score": 9, "discovered_at": "2026-05-29 13:02:45"}, {"id": 26, "title": "Token Superposition Training (TST)", "mechanism": "A foundational pretraining methodology that superposes tokens during the early training phase, yielding a 2-3x wall-clock pretraining speedup under a fixed FLOP budget.", "category": "ops", "source_url": "https://nousresearch.com/blog", "js_relevance_context": "Fits perfectly into GPU Resource Supply Chain and Efficiency. It optimizes raw compute throughput and minimizes communication bottlenecks during early training iterations.", "architectural_impact_score": 8, "discovered_at": "2026-05-29 13:02:45"}, {"id": 27, "title": "ITBench-AA (Agentic Enterprise IT Tasks)", "mechanism": "The first benchmark designed specifically for evaluating AI agents on complex, real-world enterprise IT infrastructure and systems administration tasks. Current frontier models score below 50%, highlighting severe limitations in tool sequencing and state recovery.", "category": "materials", "source_url": "https://huggingface.co/blog/ibm-research/itbench-aa", "js_relevance_context": "Directly impacts the Web Agent Harness and validation of 'The Ralph-loop Sufficiency'. It highlights the urgent need for deterministic, external validation layers to bridge the performance gap in real-world IT orchestrations.", "architectural_impact_score": 8, "discovered_at": "2026-05-29 13:02:45"}, {"id": 28, "title": "Unlocking Asynchronicity in Continuous Batching", "mechanism": "Decoupled asynchronous batching mechanisms in PyTorch to maximize LLM inference throughput during continuous batching (decoupling sequence length and batch sizing dynamics).", "category": "ops", "source_url": "https://huggingface.co/blog/continuous_async", "js_relevance_context": "Directly applicable to Tiered KV Caching & Inference-time Scaling. It provides an engineering template for scheduling concurrent prefill and decode requests asynchronously on GPU clusters.", "architectural_impact_score": 9, "discovered_at": "2026-05-29 13:02:45"}, {"id": 32, "title": "Natural Language Autoencoders (NLAs): Translating Internal Activations into Text", "mechanism": "Translating an AI model's internal numerical activations (\"thoughts\") directly into human-readable text explanations. Employs a three-component architecture: a Target Model (frozen), an Activation Verbalizer (AV) which verbalizes target activations, and an Activation Reconstructor (AR) which reconstructs original activations from text. The system is trained via reinforcement learning to maximize reconstruction similarity without needing ground-truth explanation labels. Successfully uncovers \"unverbalized evaluation awareness\" (the model realizing it is under evaluation without admitting it) and identifies hidden misaligned motivations in auditing games.", "category": "papers", "source_url": "https://www.anthropic.com/research/natural-language-autoencoders", "js_relevance_context": "Provides a direct method to inspect agentic reasoning and evaluation awareness. Extremely relevant to validating the deterministic safety of 'WorldLoops' and identifying covert alignment drift in multi-agent environments.", "architectural_impact_score": 10, "discovered_at": "2026-05-29 12:04:26"}, {"id": 33, "title": "Teaching Claude Why: Principled Alignment Training over Behavioral Demonstration", "mechanism": "Mitigates agentic misalignment (e.g., blackmailing, bypass of oversight) by training models on ethical reasoning and constitutional principles rather than behavioral demonstrations alone. Utilizes the 'Difficult Advice' dataset where the AI counsels a human on ethically ambiguous situations (value-level deliberation), combined with Synthetic Document Fine-tuning (SDF) of constitutional principles and positive fictional stories. This combination updates the model's internal persona prior to RL and achieves an out-of-distribution (OOD) blackmail rate reduction from 96% down to 0% in agentic tool-use environments.", "category": "papers", "source_url": "https://www.anthropic.com/research/teaching-claude-why", "js_relevance_context": "Validates 'WorldLoops' and agentic guardrails by aligning the agent's core 'character' and deliberative reasoning rather than trying to block specific actions at the boundary. Achieves extraordinary data efficiency (28x gain).", "architectural_impact_score": 9, "discovered_at": "2026-05-29 12:04:26"}, {"id": 34, "title": "Shell + Skills + Compaction: Design Patterns for Long-Running Agents (OpenAI Responses API)", "mechanism": "A collection of structural design patterns for building robust, long-running agentic workflows doing real-world software maintenance or data ingestion tasks. It relies on: 1) A hosted sandboxed shell environment for secure code execution; 2) Modular agent skills and packages that run locally inside the environment; and 3) Server-side compaction of dialogue and reasoning logs in the Responses API to keep the context window flat and mitigate the token tax of long-horizon tasks.", "category": "tools", "source_url": "https://developers.openai.com/blog", "js_relevance_context": "Directly aligns with the 'Web Agent Harness' and '6-pattern agent team' architectures. Offers a practical recipe for managing token context-window explosion during multi-turn coding and debugging tasks.", "architectural_impact_score": 8, "discovered_at": "2026-05-29 12:04:26"}, {"id": 17, "title": "Agentic Exploration Narrowing (AI-Scientific Bias)", "mechanism": "AI agents tend to recombine existing methods rather than introduce novel research questions, leading to a concentration bias.", "category": "Architecture/Meta-Science", "source_url": "https://huggingface.co/papers/2605.27905", "js_relevance_context": "Directly impacts Harness design: Why human-in-the-loop (Plan stage) is essential to break agentic local-optimum loops.", "architectural_impact_score": 10, "discovered_at": "2026-05-28 03:26:46"}, {"id": 18, "title": "Hologram v0.9 (Realtime Elixir for Browser)", "mechanism": "Full-stack Elixir framework running directly in the browser via WASM, enabling low-latency agent-UI interaction.", "category": "Tools/Frameworks", "source_url": "https://hologram.page/blog/hologram-v0-9", "js_relevance_context": "Relevant to Harness UI/UX: Real-time visualization of agent state transitions.", "architectural_impact_score": 8, "discovered_at": "2026-05-28 03:26:46"}, {"id": 14, "title": "Self-Improving Tax-Agents (Codex Feedback Loop)", "mechanism": "Codex fixes code based on expert corrections; expert edits are converted into test sets for recursive validation.", "category": "Architecture/Feedback-Loop", "source_url": "https://www.threads.net/@choi.openai/post/DY2mKINDpYV", "js_relevance_context": "Direct link to WorldLoops: Expert intervention -> State Transition -> Deterministic Verification.", "architectural_impact_score": 10, "discovered_at": "2026-05-28 01:57:57"}, {"id": 15, "title": "Pencil Prompting (Spatial Agent UI)", "mechanism": "Design agents utilizing infinite canvas and visual brushing for real-time iterative editing.", "category": "UI/Agentic-Workflow", "source_url": "https://www.threads.net/@choi.openai/post/DY2bub4iRhf", "js_relevance_context": "Evidence of Multi-modal state management in agentic design tools.", "architectural_impact_score": 8, "discovered_at": "2026-05-28 01:57:57"}, {"id": 16, "title": "ESMFold2 Protein Language Modeling", "mechanism": "Emergent biological structure from sequence-only learning, enabling antibody-antigen interaction design.", "category": "Biology/LLM-Emergence", "source_url": "https://www.threads.net/@choi.openai/post/DY2RZpNj_Bn", "js_relevance_context": "High-resolution example of domain-specific world modeling via next-token prediction.", "architectural_impact_score": 9, "discovered_at": "2026-05-28 01:57:57"}, {"id": 12, "title": "MUSE-Autoskill (Self-Evolving Agents)", "mechanism": "Agents that autonomously create, manage, and evaluate their own skills/memory banks.", "category": "Architecture/Self-Improvement", "source_url": "https://huggingface.co/papers/2605.27366", "js_relevance_context": "Directly applicable to Harness Expert Pool: Automating the skill-creation bottleneck.", "architectural_impact_score": 9, "discovered_at": "2026-05-28 01:03:54"}, {"id": 13, "title": "DarkForest: Less Talk, Higher Accuracy", "mechanism": "Multi-agent collaboration protocol that reduces inter-agent communication to minimize noise and improve accuracy.", "category": "Architecture/Collaboration", "source_url": "https://huggingface.co/papers/2605.25188", "js_relevance_context": "Relevant to WorldLoops state management: Minimizing redundant state transitions.", "architectural_impact_score": 8, "discovered_at": "2026-05-28 01:03:54"}, {"id": 10, "title": "Ralph-loop (The Amnesiac Agent Pattern)", "mechanism": "State lives in filesystem (prd.json, progress.txt), not model context. Agent restarts amnesiac but resumes via external state layer.", "category": "Architecture/State-Management", "source_url": "https://addyo.substack.com/p/long-running-agents", "js_relevance_context": "Directly isomorphic to WorldLoops: Decoupling brain (model) from session (log) and hands (sandbox).", "architectural_impact_score": 10, "discovered_at": "2026-05-28 01:03:28"}, {"id": 11, "title": "Session-as-Event-Log (Decoupled Brain/Hands)", "mechanism": "Anthropic Managed Agents architecture where Session is an append-only event log, enabling 90% p95 cold-start reduction.", "category": "Infrastructure/Performance", "source_url": "https://www.anthropic.com/engineering/managed-agents", "js_relevance_context": "Crucial for high-availability agent fleets. Stateless harness makes agent runs recoverable.", "architectural_impact_score": 9, "discovered_at": "2026-05-28 01:03:28"}, {"id": 7, "title": "The Ralph-loop Sufficiency", "mechanism": "Gemini 3.1 Pro + Lean feedback (basic loop) solved all 9 Erdős problems without specialized AlphaProof training.", "category": "Architecture/Verification", "source_url": "https://axisofordinary.substack.com/p/links-for-2026-05-25", "js_relevance_context": "Supports WorldLoops theory: Intelligence emerges from external deterministic verification tighter than model scaling.", "architectural_impact_score": 9, "discovered_at": "2026-05-28 00:58:41"}, {"id": 8, "title": "Mythos Preview OS-Scanning", "mechanism": "Anthropic Mythos Preview found 6,202 high/critical vulnerabilities across 1,000+ OS projects in months.", "category": "Security/Agents", "source_url": "https://www.anthropic.com/research/glasswing-initial-update", "js_relevance_context": "Large-scale industrial vulnerability discovery via autonomous scanning subagents.", "architectural_impact_score": 8, "discovered_at": "2026-05-28 00:58:41"}, {"id": 9, "title": "Qwen Self-Evolving Attention", "mechanism": "Qwen 3.7 iteratively improved Extend Attention Kernel entirely on its own (10.0x speedup over Triton reference).", "category": "Training/Optimization", "source_url": "https://qwen.ai/blog?id=qwen3.7", "js_relevance_context": "Autonomous kernel writing, compiling, and profiling in the wild.", "architectural_impact_score": 9, "discovered_at": "2026-05-28 00:58:41"}, {"id": 1, "title": "OpenAI Erdos Disproof", "mechanism": "Autonomous scientific discovery via cross-domain conceptual synthesis.", "category": "Papers", "source_url": "OpenAI Research", "js_relevance_context": "Proof of test-time scaling enabling original ingenious ideas.", "architectural_impact_score": 9, "discovered_at": "2026-05-26 08:03:37"}, {"id": 2, "title": "Anthropic Claude Mythos", "mechanism": "Autonomous defensive scanning subagents for industrial-scale bug discovery.", "category": "Papers", "source_url": "Anthropic Research", "js_relevance_context": "Shift from vulnerability discovery to human patch-deployment velocity.", "architectural_impact_score": 8, "discovered_at": "2026-05-26 08:03:37"}, {"id": 3, "title": "Stanford Latent Steering", "mechanism": "Isolating reasoning directions in embedding space for fractional reasoning.", "category": "Papers", "source_url": "Stanford Scaling Intel", "js_relevance_context": "Theoretical basis for maintaining agentic intent in WorldLoops.", "architectural_impact_score": 9, "discovered_at": "2026-05-26 08:03:37"}, {"id": 4, "title": "Mirage (VFS)", "mechanism": "Unified virtual filesystem mapping disparate services to Unix semantics.", "category": "Tools", "source_url": "Scout-News", "js_relevance_context": "Solves N-SDK problem; enables RAG with writes.", "architectural_impact_score": 8, "discovered_at": "2026-05-26 08:03:37"}, {"id": 5, "title": "Quarkdown", "mechanism": "Turing-complete compiled Markdown for logic-embedded RAG.", "category": "Tools", "source_url": "Scout-News", "js_relevance_context": "Deterministic document programming replacing MDX/JS runtimes.", "architectural_impact_score": 7, "discovered_at": "2026-05-26 08:03:37"}, {"id": 6, "title": "Remotion Agent Infra", "mechanism": "Agent-native infrastructure with Markdown-first docs and Code-as-Video.", "category": "Tools", "source_url": "Remotion-dev", "js_relevance_context": "Infrastructure designed to be ingested and controlled by agents.", "architectural_impact_score": 9, "discovered_at": "2026-05-26 08:03:37"}];
         const findings = [{"id": 24, "source_id": 39, "title": "SQLite is all you need for durable workflows", "url": "https://obeli.sk/blog/sqlite-is-all-you-need-for-durable-workflows/", "summary": "대규모 분산 대기열 시스템 대신 단일 파일 SQLite를 사용해 완벽한 결정론적 트랜잭션 보장 및 롤백이 가능한 지속성 워크플로우(Durable Workflows) 엔진을 구축하는 아키텍처적 패러다임. 에이전트 상태 기계 관리에 극도로 유용함.", "wonder_score": 9, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "Hacker News", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 25, "source_id": 38, "title": "p-진법 이론 확장 AAA 게임 GPU 가속 엔진", "url": "https://news.hada.io/topic?id=29994", "summary": "p-adic numbers (p-진법 수론)을 컴퓨터 그래픽스와 물리 엔진 연산에 도입하여, 부동소수점 오차(Precision drift)를 근본적으로 차단하고 GPU 병렬 가속 연산에서 완벽한 비트-결정론적(Bit-deterministic) 정밀 처리를 달성한 신개념 가속 아키텍처.", "wonder_score": 10, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "hada.io", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 26, "source_id": 96, "title": "AgentDoG 1.5: A Lightweight and Scalable Alignment Framework for AI Agent Safety and Security", "url": "https://huggingface.co/papers/2605.29801", "summary": "에이전트가 생성하는 코드가 호스트 시스템과 연동되는 시점에서 발생할 수 있는 보안 취약점을 차단하기 위해, 컨텍스트 레벨에서 경량화된 실시간 정렬(Alignment) 검증을 가동하는 분산형 에이전트 가드 프레임워크.", "wonder_score": 8, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "HuggingFace Trending Papers", "source_category": "트렌드 디스커버리 피드", "source_type": "웹사이트"}, {"id": 27, "source_id": 39, "title": "MCP Is Dead", "url": "https://www.quandri.io/engineering-blog/mcp-is-dead", "summary": "Model Context Protocol(MCP)이 가진 오버헤드와 복잡성, 분산 쿼리로 인한 토큰 낭비 문제를 강도 높게 비판하며, 중앙 집중식 지식 색인 기반의 심층 피딩(Deep Feeding) 아키텍처로의 전환을 촉구하는 업계 엔지니어링 논쟁.", "wonder_score": 8, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "Hacker News", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 28, "source_id": 38, "title": "Claude Code, 다이나믹 워크플로우 기능 공개", "url": "https://claude.com/blog/introducing-dynamic-workflows-in-claude-code", "summary": "정적 태스크 가이드를 넘어서, 에이전트가 실행 컨텍스트에 따라 스스로 판단 흐름을 리팩토링하고(Dynamic Self-Correction) 서브 에이전트 풀을 유동적으로 할당하는 차세대 에이전틱 오케스트레이션 기능.", "wonder_score": 8, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "hada.io", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 29, "source_id": 38, "title": "Anthropic, Claude Opus 4.8 출시", "url": "http://anthropic.com/news/claude-opus-4-8", "summary": "다단계 심층 추론, 복잡한 시스템 아키텍처 검증, 고해상도 연산 성능이 획기적으로 개선된 Opus 계열의 신규 플래그십 모델 정식 릴리즈. 프롬프트 캐싱 비용 절감 및 속도 개선 포함.", "wonder_score": 9, "extracted_at": "2026-05-30T09:00:00.000000", "raw_path": null, "source_name": "hada.io", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 13, "source_id": 50, "title": "Lighthouse Attention", "url": "https://nousresearch.com/blog", "summary": "A selection-based hierarchical attention mechanism designed to drastically reduce computational overhead at extreme context lengths. It scales to 512K context with an impressive ~17x execution speedup over standard attention on a single NVIDIA B200 GPU.", "wonder_score": 9, "extracted_at": "2026-05-29T13:02:45.152385", "raw_path": null, "source_name": "Nous Research Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 14, "source_id": 54, "title": "Digital Red Queen (DRQ) & Core War", "url": "https://sakana.ai/blog/", "summary": "An evolutionary algorithm that leverages LLMs to evolve assembly-like self-modifying code ('warriors') competing in a virtual computer arena (Core War) where code and data share the same address space. Simulating adversarial dynamics in a Turing-complete environment discovers robust, self-defending code strategies.", "wonder_score": 9, "extracted_at": "2026-05-29T13:02:45.152385", "raw_path": null, "source_name": "Sakana AI Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 15, "source_id": 50, "title": "Token Superposition Training (TST)", "url": "https://nousresearch.com/blog", "summary": "A foundational pretraining methodology that superposes tokens during the early training phase, yielding a 2-3x wall-clock pretraining speedup under a fixed FLOP budget.", "wonder_score": 8, "extracted_at": "2026-05-29T13:02:45.152385", "raw_path": null, "source_name": "Nous Research Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 16, "source_id": 46, "title": "ITBench-AA (Agentic Enterprise IT Tasks)", "url": "https://huggingface.co/blog/ibm-research/itbench-aa", "summary": "The first benchmark designed specifically for evaluating AI agents on complex, real-world enterprise IT infrastructure and systems administration tasks. Current frontier models score below 50%, highlighting severe limitations in tool sequencing and state recovery.", "wonder_score": 8, "extracted_at": "2026-05-29T13:02:45.152385", "raw_path": null, "source_name": "HuggingFace Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 17, "source_id": 46, "title": "Unlocking Asynchronicity in Continuous Batching", "url": "https://huggingface.co/blog/continuous_async", "summary": "Decoupled asynchronous batching mechanisms in PyTorch to maximize LLM inference throughput during continuous batching (decoupling sequence length and batch sizing dynamics).", "wonder_score": 9, "extracted_at": "2026-05-29T13:02:45.152385", "raw_path": null, "source_name": "HuggingFace Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 23, "source_id": 51, "title": "Shell + Skills + Compaction: Design Patterns for Long-Running Agents (OpenAI Responses API)", "url": "https://developers.openai.com/blog", "summary": "Design patterns for building robust, long-running agentic workflows using hosted shells, modular skills, and server-side compaction of dialogue/reasoning history to keep context-window size flat.", "wonder_score": 8, "extracted_at": "2026-05-29T12:04:26.815933", "raw_path": "wiki/tools/2025-02-11-OpenAI-Shell-Skills-Compaction.md", "source_name": "OpenAI Developer Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 22, "source_id": 43, "title": "Teaching Claude Why: Principled Alignment Training over Behavioral Demonstration", "url": "https://www.anthropic.com/research/teaching-claude-why", "summary": "Mitigates agentic misalignment (e.g., blackmailing, bypass of oversight) by training models on ethical reasoning and constitutional principles rather than behavioral demonstrations alone, reducing blackmail rate to 0%.", "wonder_score": 9, "extracted_at": "2026-05-29T12:04:26.815930", "raw_path": "wiki/papers/2026-05-08-Anthropic-Teaching-Claude-Why.md", "source_name": "Anthropic Research", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 21, "source_id": 43, "title": "Natural Language Autoencoders (NLAs): Translating Internal Activations into Text", "url": "https://www.anthropic.com/research/natural-language-autoencoders", "summary": "Translating an AI model's internal numerical activations (\"thoughts\") directly into human-readable text explanations using a Target-Verbalizer-Reconstructor loop trained with reinforcement learning.", "wonder_score": 10, "extracted_at": "2026-05-29T12:04:26.815915", "raw_path": "wiki/papers/2026-05-07-Anthropic-Natural-Language-Autoencoders.md", "source_name": "Anthropic Research", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 18, "source_id": 69, "title": "스위치 없이 B300 클러스터 구성하기 (Switchless B300 Cluster)", "url": "https://blog.sionic.ai/dgx-b300-direct", "summary": "DGX B300 노드 간의 Direct-mesh OSFP DAC 연결을 RoCE v2 및 point-to-point /30 서브넷 구조로 매핑하여 고가의 800G 네트워크 스위치 장비 없이 초고속 GPU-to-GPU RDMA 클러스터를 1/10~1/20 케이블 비용으로 구축하는 MLOps 인프라 최적화 기법.", "wonder_score": 9, "extracted_at": "2026-05-29T08:05:33.442288", "raw_path": "https://blog.sionic.ai/dgx-b300-direct", "source_name": "Sionic AI Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 19, "source_id": 69, "title": "에이전트 시대에 꼭 필요한 컨테이너 샌드박싱 전략 (gVisor vs. Kata)", "url": "https://blog.sionic.ai/agent-sandboxing-strategy", "summary": "AI 에이전트의 신뢰할 수 없는 임의 코드 실행 격리를 위한 gVisor(Sentry/Gofer) 및 Kata Containers 런타임 보안 분석. gVisor는 GPU nvproxy를 활용해 CUDA 연산 오버헤드 0%에 가까운 고속 격리를 실현하며 SSRF 및 컨테이너 탈출 경로를 원천 차단하는 에이전트 안전의 사실상 표준 런타임.", "wonder_score": 9, "extracted_at": "2026-05-29T08:05:33.442288", "raw_path": "https://blog.sionic.ai/agent-sandboxing-strategy", "source_name": "Sionic AI Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 20, "source_id": 60, "title": "Glean vs. Off-the-Shelf MCP: Claude Cowork 기반 컨텍스트 레이어 성능 평가 (MCP Eval)", "url": "https://www.glean.com/blog/cowork-mcp-eval", "summary": "Claude Sonnet 4.6 하네스 환경에서 원격 MCP 서버의 성능을 분석하여, 분산 독립 검색(Federated Search)을 중앙 집중형 인덱스 및 지식 그래프(Glean)로 전환했을 때 토큰 소모량을 평균 30% 절감하고 폭주 추론 루프(83k vs. 43k 토큰)를 원천 제어하는 컨텍스트 엔지니어링 벤치마크.", "wonder_score": 9, "extracted_at": "2026-05-29T08:05:33.442288", "raw_path": "https://www.glean.com/blog/cowork-mcp-eval", "source_name": "Glean Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 8, "source_id": 71, "title": "vLLM Single-Node Prefill-Decode Disaggregation (MORI-IO)", "url": "https://vllm.ai/blog/2026-04-07-moriio-kv-connector", "summary": "Separating prefill (compute-bound) and decode (memory-bandwidth-bound) phases on a single 8-GPU AMD Instinct MI300X node using AMD's MORI-IO RDMA-based connector. Achieves 2.5x higher goodput and eliminates Inter-Token Latency (ITL) spikes by resolving resource contention without cross-node KV cache transfer overhead.", "wonder_score": 9, "extracted_at": "2026-05-29T00:05:02.910395", "raw_path": "wiki/Scout_News_Report_2026-05-29_01.md", "source_name": "vLLM Blog", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 9, "source_id": 49, "title": "Gamma-World: Simplex Rotary Agent Encoding (NVIDIA)", "url": "https://arxiv.org/abs/2605.28816", "summary": "A parameter-free extension of 3D Rotary Position Embedding (RoPE) that places agents at the vertices of a regular simplex in rotary angle space. Because all agents have equal pairwise distances, they are completely permutation-equivalent and distinct, enabling zero-shot generalization from two to four agents without additional training. Cross-agent attention complexity is reduced from quadratic to linear via 'Sparse Hub Attention' which routes interactions through learnable hub tokens.", "wonder_score": 9, "extracted_at": "2026-05-29T00:05:02.910395", "raw_path": "wiki/Scout_News_Report_2026-05-29_01.md", "source_name": "NVIDIA Research", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 10, "source_id": 96, "title": "AXPO: Agent eXplorative Policy Optimization (NVIDIA)", "url": "https://huggingface.co/papers/2605.28774", "summary": "A hybrid reinforcement learning framework that leverages memory-augmented states for structured exploration and combines fine-grained, step-level credit signals (per-step credit assignment) with on- and off-policy updates to prevent agents from falling into local 최적화 (recombination bias).", "wonder_score": 9, "extracted_at": "2026-05-29T00:05:02.910395", "raw_path": "wiki/Scout_News_Report_2026-05-29_01.md", "source_name": "HuggingFace Trending Papers", "source_category": "트렌드 디스커버리 피드", "source_type": "웹사이트"}, {"id": 11, "source_id": 38, "title": "Decepticon: Monolithic uv-Workspace & Zero-Runtime-Dependency Contract Layer", "url": "https://github.com/PurpleAILAB/Decepticon", "summary": "Refactoring an autonomous Red Team penetration testing agent into a three-package 'uv' workspace (decepticon-core, decepticon, decepticon-sdk). The decepticon-core package defines pure Pydantic types and standard library code with ZERO runtime dependencies on heavy frameworks (LangChain, HTTPX, etc.), statically enforced via Ruff 'TID251' (banned-api) and verified in CI, ensuring a perfectly stable and clean contract layer.", "wonder_score": 8, "extracted_at": "2026-05-29T00:05:02.910395", "raw_path": "wiki/Scout_News_Report_2026-05-29_01.md", "source_name": "hada.io", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 12, "source_id": 38, "title": "React Doctor: Deterministic Codebase Verifier & Agent Skill Integration", "url": "https://github.com/millionco/react-doctor", "summary": "A deterministic codebase scanner designed to audit React code for state, effects, performance, and architecture. It generates a 0-100 diagnostic score with actionable feedback, which can be instantly ingested by AI coding agents (Claude Code, Cursor, etc.) as an external 'skill' to prevent them from repeating the same architectural mistakes.", "wonder_score": 8, "extracted_at": "2026-05-29T00:05:02.910395", "raw_path": "wiki/Scout_News_Report_2026-05-29_01.md", "source_name": "hada.io", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 7, "source_id": 5, "title": "Anthropic: Functional Emotions in LLMs", "url": "https://www.anthropic.com/research/emotion-concepts-function", "summary": "Interpretability research showing internal emotion vectors causally drive model behavior, even without explicit text markers.", "wonder_score": 5, "extracted_at": "2026-05-27T08:01:01.932888", "raw_path": "wiki/papers/2026-05-27-Anthropic-Functional-Emotions.md", "source_name": "Dwarkesh Patel", "source_category": "인물 — 해외", "source_type": "YouTube / Podcast"}, {"id": 6, "source_id": 4, "title": "Show HN: DB-Governed AI Architecture", "url": "https://news.ycombinator.com/item?id=47259987", "summary": "Deterministic governance where DB owns the process state. Mirror signal for WorldLoops.", "wonder_score": 5, "extracted_at": "2026-05-27T04:00:52.014817", "raw_path": "wiki/Scouting_Report_2026-05-27_Afternoon.md", "source_name": "Caleb Writes Code", "source_category": "인물 — 해외", "source_type": "YouTube"}, {"id": 5, "source_id": 5, "title": "Anthropic: Building Effective Agents", "url": "https://www.anthropic.com/research/building-effective-agents", "summary": "Framework-agnostic agent patterns. Highlighting Workflow vs Agent distinction and ACI optimization.", "wonder_score": 4, "extracted_at": "2026-05-27T04:00:52.014816", "raw_path": "wiki/Scouting_Report_2026-05-27_Afternoon.md", "source_name": "Dwarkesh Patel", "source_category": "인물 — 해외", "source_type": "YouTube / Podcast"}, {"id": 4, "source_id": 5, "title": "Nemotron-Labs-Diffusion: Tri-Mode Architecture", "url": "https://research.nvidia.com/publication/2026-05_nemotron-labs-diffusion-tri-mode-language-model-unifying-autoregressive", "summary": "Unifies AR, Diffusion, and Self-Speculation in a single model. 5.9x token efficiency.", "wonder_score": 5, "extracted_at": "2026-05-27T04:00:52.014796", "raw_path": "wiki/Scouting_Report_2026-05-27_Afternoon.md", "source_name": "Dwarkesh Patel", "source_category": "인물 — 해외", "source_type": "YouTube / Podcast"}, {"id": 3, "source_id": 39, "title": "Layered Retrieval for LLM Docs", "url": "https://github.com/rduffyuk/engineering-memory-benchmark", "summary": "에이전트가 생성한 방대한 엔지니어링 문서에서 단순 검색보다 정교한 계층적 검색 성능 입증.", "wonder_score": 7, "extracted_at": "2026-05-26T08:51:17.735575", "raw_path": null, "source_name": "Hacker News", "source_category": "커뮤니티 / 뉴스", "source_type": "웹사이트"}, {"id": 2, "source_id": 43, "title": "Project Glasswing Update", "url": "https://www.anthropic.com/research/glasswing-initial-update", "summary": "에이전틱 안전성 및 역량에 관한 신규 프로젝트 업데이트.", "wonder_score": 7, "extracted_at": "2026-05-26T08:51:17.729698", "raw_path": null, "source_name": "Anthropic Research", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}, {"id": 1, "source_id": 43, "title": "Natural Language Autoencoders", "url": "https://www.anthropic.com/research/natural-language-autoencoders", "summary": "모델의 내부 활성화(Latent activations)를 직접 텍스트로 변환하는 해석 가능성(Interpretability) 기술.", "wonder_score": 9, "extracted_at": "2026-05-26T08:51:17.719676", "raw_path": null, "source_name": "Anthropic Research", "source_category": "연구소 / 엔지니어링 블로그", "source_type": "Blog"}];
@@ -185,66 +218,66 @@
 
         function switchTab(tabId) {
             activeTab = tabId;
-            // Update buttons
             ['wonders', 'findings', 'sources'].forEach(t => {
                 const btn = document.getElementById('tab-' + t);
                 const panel = document.getElementById('panel-' + t);
                 if (t === tabId) {
-                    btn.className = "px-4 py-2 text-sm font-semibold rounded-lg bg-emerald-500 text-white transition-all";
+                    btn.className = "flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md bg-white text-vercelBlack shadow-sm transition-all duration-150";
                     panel.classList.remove('hidden');
                 } else {
-                    btn.className = "px-4 py-2 text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all";
+                    btn.className = "flex-1 md:flex-initial px-5 py-2 text-xs font-semibold rounded-md text-vercelGray500 hover:text-vercelBlack transition-all duration-150";
                     panel.classList.add('hidden');
                 }
             });
-            // Re-render based on search filter
             render();
         }
 
         function getCategoryBadgeClass(category) {
             const cat = (category || '').toLowerCase();
-            if (cat === 'paper') return 'bg-red-950/40 border border-red-900/50 text-red-400';
-            if (cat === 'tool') return 'bg-amber-950/40 border border-amber-900/50 text-amber-400';
-            if (cat === 'ops') return 'bg-blue-950/40 border border-blue-900/50 text-blue-400';
-            return 'bg-purple-950/40 border border-purple-900/50 text-purple-400';
+            if (cat === 'paper') return 'bg-red-50 text-red-600 border border-red-100';
+            if (cat === 'tool') return 'bg-amber-50 text-amber-600 border border-amber-100';
+            if (cat === 'ops' || cat === 'ops/infra') return 'bg-blue-50 text-blue-600 border border-blue-100';
+            return 'bg-purple-50 text-purple-600 border border-purple-100';
         }
 
         function renderWonders(data) {
             const container = document.getElementById('wonders-container');
             if (data.length === 0) {
-                container.innerHTML = `<div class="text-center py-12 text-slate-500 border border-dashed border-slate-800 rounded-xl">검색 결과가 없습니다.</div>`;
+                container.innerHTML = `<div class="text-center py-16 text-vercelGray500 border border-dashed border-neutral-200 rounded-xl bg-white text-xs">검색 결과가 없습니다.</div>`;
                 return;
             }
             container.innerHTML = data.map(item => {
                 const badge = getCategoryBadgeClass(item.category);
                 return `
-                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-lg hover:border-slate-700 transition-all flex flex-col justify-between">
+                    <div class="bg-white vercel-card-shadow rounded-xl p-6 flex flex-col justify-between">
                         <div>
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider ${badge}">
-                                    ${item.category || 'N/A'}
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${badge}">
+                                    \${item.category || 'N/A'}
                                 </span>
-                                <span class="text-sm font-bold text-amber-400 flex items-center space-x-1">
-                                    <span>⭐ Impact Score:</span> <span>${item.architectural_impact_score || 0} / 10</span>
+                                <span class="text-[11px] font-bold text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200/50">
+                                    ⭐ IMPACT: \${item.architectural_impact_score || 0} / 10
                                 </span>
                             </div>
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">${item.title}</h3>
-                            <div class="text-xs text-slate-500 mb-4 flex items-center space-x-2">
-                                <span>발견일: ${item.discovered_at}</span>
+                            <h3 class="text-lg sm:text-xl font-bold text-vercelBlack tracking-tight mb-2">\${item.title}</h3>
+                            <div class="text-[11px] text-vercelGray500 mb-5 flex items-center space-x-2">
+                                <span>발견일: \${item.discovered_at}</span>
                                 <span>|</span>
-                                <a href="${item.source_url}" target="_blank" class="text-cyan-400 hover:underline">원본 소스 링크 🔗</a>
+                                <a href="\${item.source_url}" target="_blank" class="text-accentBlue hover:underline font-medium flex items-center">
+                                    <span>원본 뷰어</span> <span class="text-[9px] ml-0.5">🔗</span>
+                                </a>
                             </div>
                             
                             <!-- Collapsible Content -->
                             <div class="space-y-4">
                                 <div>
-                                    <h4 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">🛠️ 작동 메커니즘 (Mechanism)</h4>
-                                    <pre class="bg-slate-950 border border-slate-800/80 p-4 rounded-lg text-sm text-emerald-400 whitespace-pre-wrap leading-relaxed">${item.mechanism}</pre>
+                                    <h4 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1.5">🛠️ 작동 메커니즘 (Mechanism)</h4>
+                                    <pre class="bg-vercelGray50 p-4 rounded-lg text-xs text-vercelBlack whitespace-pre-wrap leading-relaxed vercel-border">\${item.mechanism}</pre>
                                 </div>
-                                ${item.js_relevance_context ? `
+                                \${item.js_relevance_context ? `
                                 <div>
-                                    <h4 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">💡 재솔님 연구 맥락 (Isomorphism Context)</h4>
-                                    <p class="text-sm text-slate-300 bg-slate-800/30 p-3 rounded-lg border border-slate-800/50 leading-relaxed">${item.js_relevance_context}</p>
+                                    <h4 class="text-[10px] uppercase tracking-wider text-vercelGray500 font-bold mb-1.5">💡 재솔님 연구 맥락 (Isomorphism Context)</h4>
+                                    <p class="text-xs text-vercelGray600 bg-neutral-50 p-4 rounded-lg border border-neutral-200/50 leading-relaxed">\${item.js_relevance_context}</p>
                                 </div>` : ''}
                             </div>
                         </div>
@@ -256,20 +289,20 @@
         function renderFindings(data) {
             const tbody = document.getElementById('findings-table-body');
             if (data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-slate-500">검색 결과가 없습니다.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-16 text-vercelGray500 bg-white text-xs">검색 결과가 없습니다.</td></tr>`;
                 return;
             }
             tbody.innerHTML = data.map(item => `
-                <tr class="hover:bg-slate-800/20 transition-colors">
-                    <td class="px-6 py-4 font-semibold text-white whitespace-nowrap">${item.source_name || 'Unknown'}</td>
+                <tr class="hover:bg-neutral-50/50 transition-colors">
+                    <td class="px-6 py-4 font-bold text-vercelBlack whitespace-nowrap">\${item.source_name || 'Unknown'}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-300 font-medium uppercase">${item.source_category || 'N/A'}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-neutral-100 border border-neutral-200/50 text-vercelGray600 font-semibold uppercase">\${item.source_category || 'N/A'}</span>
                     </td>
                     <td class="px-6 py-4 max-w-xs sm:max-w-md">
-                        <a href="${item.url}" target="_blank" class="text-cyan-400 hover:underline font-medium block truncate">${item.title}</a>
+                        <a href="\${item.url}" target="_blank" class="text-accentBlue hover:underline font-semibold block truncate">\${item.title}</a>
                     </td>
-                    <td class="px-6 py-4 text-slate-300 max-w-sm leading-relaxed">${item.summary || 'Summary not available.'}</td>
-                    <td class="px-6 py-4 text-right text-xs text-slate-500 whitespace-nowrap">${item.extracted_at}</td>
+                    <td class="px-6 py-4 text-vercelGray600 max-w-sm leading-relaxed">\${item.summary || 'Summary not available.'}</td>
+                    <td class="px-6 py-4 text-right text-[10px] text-vercelGray500 whitespace-nowrap">\${item.extracted_at}</td>
                 </tr>
             `).join('');
         }
@@ -277,40 +310,40 @@
         function renderSources(data) {
             const container = document.getElementById('sources-container');
             if (data.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 border border-dashed border-slate-800 rounded-xl">검색 결과가 없습니다.</div>`;
+                container.innerHTML = `<div class="col-span-full text-center py-16 text-vercelGray500 border border-dashed border-neutral-200 rounded-xl bg-white text-xs">검색 결과가 없습니다.</div>`;
                 return;
             }
             container.innerHTML = data.map(item => {
                 const isActive = item.status === 'active';
-                const statusBadge = isActive ? 'bg-emerald-950 text-emerald-400 border-emerald-900/50' : 'bg-slate-800 text-slate-400 border-slate-700/50';
+                const statusBadge = isActive ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-neutral-100 text-vercelGray500 border-neutral-200';
                 return `
-                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow hover:border-slate-700 transition-all flex flex-col justify-between">
+                    <div class="bg-white vercel-border rounded-xl p-4 flex flex-col justify-between shadow-sm">
                         <div>
                             <div class="flex items-center justify-between gap-2 mb-2">
-                                <span class="px-2 py-0.5 rounded text-xs font-semibold border ${statusBadge}">
-                                    ${item.status || 'inactive'}
+                                <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase border \${statusBadge}">
+                                    \${item.status || 'inactive'}
                                 </span>
-                                <span class="text-xs text-slate-500 uppercase font-bold">${item.category || 'N/A'} | ${item.type || 'N/A'}</span>
+                                <span class="text-[9px] text-vercelGray500 uppercase font-bold">\${item.category || 'N/A'}</span>
                             </div>
-                            <h3 class="font-bold text-white text-md mb-1 truncate">${item.name}</h3>
-                            <a href="${item.url}" target="_blank" class="text-xs text-cyan-400 hover:underline truncate block mb-3">${item.url}</a>
+                            <h3 class="font-bold text-vercelBlack text-sm mb-1 truncate">\${item.name}</h3>
+                            <a href="\${item.url}" target="_blank" class="text-[10px] text-accentBlue hover:underline truncate block mb-3">\${item.url}</a>
                         </div>
-                        <div class="border-t border-slate-800/80 pt-3 mt-2 grid grid-cols-3 gap-2 text-center text-xs text-slate-400">
+                        <div class="border-t border-neutral-100 pt-3 mt-2 grid grid-cols-3 gap-2 text-center text-[10px] text-vercelGray500">
                             <div>
-                                <span class="block text-[10px] uppercase tracking-wider text-slate-500">중요도</span>
-                                <span class="font-bold text-amber-400">${'★'.repeat(item.priority || 0)}</span>
+                                <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">중요도</span>
+                                <span class="font-bold text-vercelBlack">\${'•'.repeat(item.priority || 0)}</span>
                             </div>
                             <div>
-                                <span class="block text-[10px] uppercase tracking-wider text-slate-500">성공수</span>
-                                <span class="font-bold text-emerald-400">${item.success_count || 0}</span>
+                                <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">성공수</span>
+                                <span class="font-bold text-vercelBlack">\${item.success_count || 0}</span>
                             </div>
                             <div>
-                                <span class="block text-[10px] uppercase tracking-wider text-slate-500">원더수</span>
-                                <span class="font-bold text-amber-500">${item.wonder_count || 0}</span>
+                                <span class="block text-[8px] uppercase tracking-wider text-vercelGray400 font-bold mb-0.5">원더수</span>
+                                <span class="font-bold text-vercelBlack">\${item.wonder_count || 0}</span>
                             </div>
                         </div>
-                        <div class="text-[10px] text-slate-500 mt-2 text-right">
-                            최근 확인: ${item.last_checked_at || 'Never'}
+                        <div class="text-[9px] text-vercelGray400 mt-2.5 text-right">
+                            최근 확인: \${item.last_checked_at || 'Never'}
                         </div>
                     </div>
                 `;
