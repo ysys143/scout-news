@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scout News · 기술 소식과 분석</title>
+    <script>/* The primary graph entry always opens the full knowledge map. */
+(function (root) {
+    function destination(href) {
+        const url = new URL(href), params = url.searchParams;
+        if (params.get('s_view') !== 'graph' || params.get('s_articleGraph') === '1' || params.get('s_graphMode') === 'local') return null;
+        return new URL('./network.html', url).href;
+    }
+    const api = {destination};
+    if (typeof module === 'object' && module.exports) module.exports = api;
+    else {
+        root.ScoutGraphEntry = api;
+        const target = destination(root.location.href);
+        if (target) root.location.replace(target);
+    }
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -403,7 +419,7 @@ body.scout-graph-active .dashboard-header { display: none; }
                 <span>Scout News</span>
             </div>
             <div class="dashboard-nav-tools">
-                <span class="dashboard-updated">마지막 갱신: <span class="text-vercelBlack font-semibold">2026-09-13 03:49:27 KST</span></span>
+                <span class="dashboard-updated">마지막 갱신: <span class="text-vercelBlack font-semibold">2026-09-13 04:24:17 KST</span></span>
                 <details id="management-menu" class="management-menu">
                     <summary><svg class="scout-icon" aria-hidden="true"><use href="#icon-sources"/></svg><span id="management-label">수집 관리</span></summary>
                     <div class="management-options" aria-label="수집 관리 메뉴">
@@ -811,6 +827,7 @@ body.scout-graph-active .dashboard-header { display: none; }
         }
         function writeUrl(push=false) {
             const u=new URL(location.href);
+            if(state.view==='graph')u.searchParams.set('s_articleGraph','1');else u.searchParams.delete('s_articleGraph');
             for(const key of Object.keys(defaults)) {u.searchParams.delete('s_'+key);if(state[key]!==defaults[key]&&state[key]!=='')u.searchParams.set('s_'+key,state[key]);}
             history[push?'pushState':'replaceState']({...history.state,scoutVersion:version,scoutAnchor:captureAnchor()},'',u);
         }
@@ -843,7 +860,7 @@ body.scout-graph-active .dashboard-header { display: none; }
         const option=(value,label)=>'<option value="'+escape(value)+'">'+escape(label)+'</option>';
         element.innerHTML=`
             <div class="explorer-heading"><div><h2>전체 소식</h2><p id="explorer-count" aria-live="polite"></p></div>
-              <div class="explorer-toggle" role="group" aria-label="소식 보기"><button type="button" data-view="list">목록</button><button type="button" data-view="graph">그래프</button></div></div>
+              <div class="explorer-toggle" role="group" aria-label="소식 보기"><button type="button" data-view="list">목록</button><button type="button" data-action="open-map">그래프</button></div></div>
             <div class="explorer-toolbar"><label>검색 범위<select data-state="scope">${option('all','제목·요약·분석')+option('title','제목')+option('summary','수집 요약')+option('analysis','분석')}</select></label>
               <label>정렬<select data-state="sort">${option('relevance','관련도')+option('published','최신 발행')+option('collected','최근 수집')}</select></label>
               <details id="explorer-filters"><summary>필터 <span id="filter-count"></span></summary><div class="explorer-filter-grid">
@@ -994,6 +1011,7 @@ body.scout-graph-active .dashboard-header { display: none; }
         element.addEventListener('change',event=>{const key=event.target.dataset.state;if(key)update({[key]:event.target.type==='checkbox'?event.target.checked:event.target.value},{reset:!['relation','limit','auto'].includes(key)});});
         element.addEventListener('click',async event=>{
             const b=event.target.closest('button,[data-select]');if(!b)return;
+            if(b.dataset.action==='open-map'){writeUrl();location.assign(new URL('./network.html',location.href).href);return;}
             if(b.dataset.view){update({view:b.dataset.view},{reset:false});return;}
             if(b.dataset.page){movePage(Number(b.dataset.page));return;}
             if(b.dataset.neighborhood){update({view:'graph',graphMode:'local',seed:b.dataset.neighborhood,selected:b.dataset.neighborhood},{reset:false});rememberQuery();return;}
