@@ -403,7 +403,7 @@ body.scout-graph-active .dashboard-header { display: none; }
                 <span>Scout News</span>
             </div>
             <div class="dashboard-nav-tools">
-                <span class="dashboard-updated">마지막 갱신: <span class="text-vercelBlack font-semibold">2026-09-13 02:58:49 KST</span></span>
+                <span class="dashboard-updated">마지막 갱신: <span class="text-vercelBlack font-semibold">2026-09-13 03:49:27 KST</span></span>
                 <details id="management-menu" class="management-menu">
                     <summary><svg class="scout-icon" aria-hidden="true"><use href="#icon-sources"/></svg><span id="management-label">수집 관리</span></summary>
                     <div class="management-options" aria-label="수집 관리 메뉴">
@@ -862,7 +862,7 @@ body.scout-graph-active .dashboard-header { display: none; }
               <label>표시 단위<select data-state="size">${option(30,'30개')+option(60,'60개')}</select></label>
               <label id="explorer-auto" class="explorer-check"><input type="checkbox" data-state="auto">자동 불러오기</label></div>
             <div id="explorer-list"></div><nav id="explorer-pages" aria-label="전체 소식 페이지"></nav>
-            <div id="explorer-graph" hidden><div class="explorer-toolbar"><label>탐색 방식<select data-state="graphMode">${option('topics','주제 지도')+option('local','기사 주변')}</select></label><label id="graph-relation-control">연결 기준<select data-state="relation">${option('keywords','형태소·용어 유사도')+option('source','같은 출처')+option('type','같은 분류')}</select></label>
+            <div id="explorer-graph" hidden><div class="explorer-toolbar"><a href="./network.html" style="color:#245da8;padding:10px 14px;border:1px solid #b9cce5;border-radius:7px;background:white">지식 지도 열기 ↗</a><label>탐색 방식<select data-state="graphMode">${option('topics','주제 지도')+option('local','기사 주변')}</select></label><label id="graph-relation-control">연결 기준<select data-state="relation">${option('keywords','형태소·용어 유사도')+option('source','같은 출처')+option('type','같은 분류')}</select></label>
               <label>이웃 수<select data-state="limit">${option(20,'최대 20개')+option(40,'최대 40개')}</select></label><span id="graph-count"></span></div>
               <div class="graph-layout"><div class="graph-stage"><div class="graph-tools"><button type="button" data-action="zoom-in" aria-label="그래프 확대">＋</button><button type="button" data-action="zoom-out" aria-label="그래프 축소">−</button><button type="button" data-action="fit">전체 맞춤</button></div>
               <svg id="scout-graph-svg" viewBox="0 0 1000 620" role="group" aria-label="선택한 기사와 주변 관계"></svg>
