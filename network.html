@@ -8,10 +8,50 @@ button,input{font:inherit;color:inherit}button,a,input,summary{-webkit-tap-highl
 @media(max-width:700px){#sidebar{width:min(340px,90vw);transform:translateX(-100%);box-shadow:var(--shadow)}body.sidebar-open #sidebar{transform:translateX(0)}#map{left:0}#sidebar-open,#sidebar-close{display:block}#detail{top:auto;bottom:0;right:0;width:100%;max-height:48dvh;border-radius:14px 14px 0 0;padding:18px}.map-tools{top:12px;left:12px;right:12px;gap:5px}.map-tools button{padding:7px 9px;min-height:42px}#status{bottom:42px;font-size:11px}.map-help{font-size:10px}body.detail-open #status,body.detail-open .map-help{display:none}}
 
 .article-link{display:block;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.6}.article-link small{display:block;margin-top:5px;color:var(--muted);font-size:11px}
+
+/* The map occupies the space below the same header as every reading page. */
+#sidebar{top:var(--scout-header-height);width:272px;padding:20px 16px;z-index:20}
+#sidebar h1{margin:0 0 4px;font-size:22px}
+#sidebar h2{margin-top:20px}
+#map{top:var(--scout-header-height);left:272px}
+#detail{top:var(--scout-header-height);right:0;bottom:0;width:340px;border:0;border-left:1px solid var(--line);border-radius:0;box-shadow:none;padding:20px;z-index:21}
+body.detail-open #map{right:340px}
+.map-tools{top:14px;left:14px;right:14px}
+#status,.map-help{background:#f7f9fce8;border-radius:4px;padding:2px 5px;left:14px}
+@media(min-width:1600px){#sidebar{width:288px}#map{left:288px}#detail{width:380px}body.detail-open #map{right:380px}}
+@media(max-width:1000px){#sidebar{width:240px}#map{left:240px}#detail{width:300px}body.detail-open #map{right:300px}}
+@media(max-width:800px){#sidebar{width:min(320px,88vw);transform:translateX(-100%);box-shadow:var(--shadow)}body.sidebar-open #sidebar{transform:translateX(0)}#map{left:0}#sidebar-open,#sidebar-close{display:block}body.detail-open #map{right:0}#detail{top:auto;bottom:0;width:100%;max-height:45dvh;border-top:1px solid var(--line)}body.detail-open #map{bottom:45dvh}body.detail-open #status,body.detail-open .map-help{display:none}}
+
+:root{--scout-header-height:64px;--page-bg:#f7f9fc;--surface:#fff;--ink:#243044;--muted:#68778a;--line:#dce3ed;--accent:#245da8;color-scheme:light}
+.scout-app-header{box-sizing:border-box;position:sticky;top:0;z-index:35;display:flex;align-items:center;gap:36px;height:var(--scout-header-height);padding:0 28px;background:#fff;border-bottom:1px solid var(--line);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;flex-shrink:0}
+.scout-app-header a{text-decoration:none;color:inherit}
+.scout-app-brand{display:flex;align-items:center;gap:9px;flex-shrink:0;font-size:18px;font-weight:700;letter-spacing:-.5px}
+.scout-app-brand svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round}
+.scout-app-nav{display:flex;align-self:stretch;gap:24px;min-width:0}
+.scout-app-nav a{display:flex;align-items:center;border-bottom:2px solid transparent;white-space:nowrap;color:var(--muted);font-weight:600;padding:0 3px}
+.scout-app-nav a:hover{color:var(--accent)}
+.scout-app-nav a[aria-current=page]{border-color:var(--accent);color:var(--accent)}
+.scout-app-management{margin:0 0 0 auto;padding:0;border:0;position:relative;flex-shrink:0}
+.scout-app-management summary{list-style:none;cursor:pointer;font-size:13px;padding:9px 12px;border:1px solid var(--line);border-radius:7px;min-height:40px;box-sizing:border-box}
+.scout-app-management summary::after{content:'⌄';margin-left:12px;color:var(--muted)}
+.scout-app-management summary::-webkit-details-marker{display:none}
+.scout-app-management nav{position:absolute;right:0;top:calc(100% + 8px);width:180px;padding:6px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px #24304414}
+.scout-app-management nav a{display:block;padding:10px 12px;border-radius:5px}
+.scout-app-management nav a:hover,.scout-app-management nav a[aria-current=page]{background:#edf3fb;color:var(--accent)}
+.scout-app-header :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:700px){:root{--scout-header-height:108px}.scout-app-header{height:108px;display:grid;grid-template-columns:1fr auto;grid-template-rows:58px 50px;padding:0 16px;gap:0}.scout-app-brand{font-size:17px}.scout-app-nav{grid-column:1/-1;grid-row:2;justify-content:space-between;gap:16px}.scout-app-management{grid-column:2;grid-row:1}.scout-app-management summary{font-size:12px}.scout-app-nav a{font-size:14px}}
+
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
 </style></head>
-<body data-theme="dark">
+<body data-theme="light">
+<header class="scout-app-header">
+      <a class="scout-app-brand" href="./index.html?section=findings" aria-label="Scout News 소식">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="m12 12 8-8"/></svg>Scout News</a>
+      <nav class="scout-app-nav" aria-label="주요 메뉴"><a data-section="findings" href="./index.html?section=findings">소식</a><a data-section="network" href="./network.html" aria-current="page">지식 지도</a><a data-section="wonders" href="./index.html?section=wonders">분석</a><a data-section="reports" href="./index.html?section=reports">보고서</a></nav>
+      <details class="scout-app-management" id="management-menu"><summary>수집 관리</summary>
+        <nav aria-label="수집 관리 메뉴"><a data-section="matrix" href="./index.html?section=matrix">수집 현황</a><a data-section="sources" href="./index.html?section=sources">정보원</a><a data-section="evolution" href="./index.html?section=evolution">변경 이력</a></nav></details>
+    </header>
 <aside id="sidebar">
-  <a class="back" href="./index.html">← Scout News로 돌아가기</a>
   <div class="heading"><h1>지식 지도</h1><button id="sidebar-close" aria-label="필터 접기">×</button></div>
   <p id="totals" class="muted"></p>
   <form id="search-form"><label for="search">용어 검색</label><div class="search-row"><input id="search" type="search" placeholder="기술·기업·개념 검색" autocomplete="off"><button type="submit">찾기</button></div></form>
@@ -24,10 +64,9 @@ button,input{font:inherit;color:inherit}button,a,input,summary{-webkit-tap-highl
     <label class="check"><input id="only-matches" type="checkbox">검색·군집 결과만 표시</label>
     <label class="check"><input id="show-labels" type="checkbox" checked>주요 노드 이름 표시</label>
     <label>노드 크기<input id="node-size" type="range" min="0.5" max="2" step="0.1" value="1"></label>
-    <label>선 진하기<input id="edge-opacity" type="range" min="0.03" max="0.4" step="0.01" value="0.07"></label>
-    <button id="theme" class="wide">어두운 배경</button>
+    <label>선 진하기<input id="edge-opacity" type="range" min="0.03" max="0.4" step="0.01" value="0.12"></label>
   </details>
-  <p class="method">Kiwi로 추출한 용어를 수집한 제목·요약에 함께 등장한 빈도로 연결했습니다. 색은 주제 군집, 크기는 연결 중심성입니다. 선을 누르면 근거 기사를 볼 수 있습니다.</p>
+  <p class="method">색은 주제 군집, 크기는 연결 중심성입니다. 용어나 선을 선택하면 함께 등장한 근거 기사를 볼 수 있습니다.</p>
 </aside>
 <main id="map" aria-label="전체 용어 관계 지도">
   <canvas id="network" aria-label="용어 관계 지도. 검색 결과로도 탐색할 수 있습니다." tabindex="0"></canvas>
@@ -108,7 +147,7 @@ onmessage=event=>{
     const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const norm=s=>String(s||'').normalize('NFKC').toLowerCase();
     const safeUrl=s=>{try{const u=new URL(s);return ['https:','http:'].includes(u.protocol)?u.href:'#';}catch{return '#';}};
-    const palette=['#a8d947','#52c6d4','#eea147','#ad83ec','#dc69bf','#e0c755','#62c89c','#749dea','#db8674','#b5bd7b'];
+    const palette=['#65852c','#188d9d','#c67b24','#8263bd','#b24c93','#a18a24','#319278','#527bc2','#bd6d5c','#77844b'];
     const nodes=data.nodes.map((n,index)=>({...n,index,x:Math.cos(index*2.39996)*Math.sqrt(index)*12,y:Math.sin(index*2.39996)*Math.sqrt(index)*12,search:norm(n.id+' '+n.title+' '+n.summary)}));
     const byId=new Map(nodes.map(n=>[n.id,n])), communities=new Map(data.communities.map(c=>[c.id,c]));
     const links=data.edges.filter(e=>byId.has(e[0])&&byId.has(e[1])).map(([a,b,weight,terms,count])=>({source:byId.get(a).index,target:byId.get(b).index,weight,terms,count}));
@@ -122,7 +161,7 @@ onmessage=event=>{
     let pendingNode=params.get('node');
     query=params.get('q')||'';community=communities.has(params.get('community'))?params.get('community'):'';
     $('search').value=query;$('orphans').checked=params.get('orphans')==='1';$('only-matches').checked=params.get('only')==='1';
-    try{document.body.dataset.theme=localStorage.getItem('scout.network.theme')==='light'?'light':'dark';}catch{}
+    document.body.dataset.theme='light';
     function color(n){return n.community===''?'#98a3b2':palette[Number(n.community)%palette.length];}
     function writeUrl(){const url=new URL(location.href);for(const k of ['q','community','node','orphans','only'])url.searchParams.delete(k);
         if(query)url.searchParams.set('q',query);if(community)url.searchParams.set('community',community);if(selected!==null)url.searchParams.set('node',nodes[selected].id);
@@ -224,8 +263,6 @@ onmessage=event=>{
     $('clear').onclick=()=>{query='';community='';$('search').value='';$('cluster-search').value='';$('only-matches').checked=false;closeDetail();filter();};
     for(const id of ['orphans','only-matches'])$(id).onchange=()=>{filter();userCamera=true;fit();};
     for(const id of ['node-size','edge-opacity','show-labels'])$(id).oninput=requestDraw;
-    function themeLabel(){$('theme').textContent=document.body.dataset.theme==='dark'?'밝은 배경':'어두운 배경';}
-    $('theme').onclick=()=>{document.body.dataset.theme=document.body.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('scout.network.theme',document.body.dataset.theme);}catch{}themeLabel();requestDraw();};
     $('sidebar-open').onclick=()=>document.body.classList.add('sidebar-open');$('sidebar-close').onclick=()=>document.body.classList.remove('sidebar-open');
     const workerUrl=URL.createObjectURL(new Blob([$('worker-source').textContent],{type:'text/javascript'}));const worker=new Worker(workerUrl);URL.revokeObjectURL(workerUrl);
     worker.onmessage=event=>{const {positions,done}=event.data;nodes.forEach((n,i)=>{n.x=positions[2*i];n.y=positions[2*i+1];});positionsReady=true;
@@ -234,10 +271,35 @@ onmessage=event=>{
     worker.onerror=()=>{layoutRunning=false;$('simulation').disabled=true;$('status').textContent='배치 계산을 완료하지 못했습니다. 검색과 근거 기사는 계속 사용할 수 있습니다.';};
     $('simulation').onclick=()=>{if(layoutRunning){worker.postMessage({type:'stop'});layoutRunning=false;$('simulation').textContent='배치 다듬기';}else{worker.postMessage({type:'resume'});layoutRunning=true;$('simulation').textContent='배치 정지';}updateStatus();};
     $('totals').textContent='노드 '+nodes.length.toLocaleString()+' · 군집 '+data.communities.length+' · 연결 '+links.length.toLocaleString();
-    new ResizeObserver(resize).observe(map);themeLabel();filter();resize();
+    new ResizeObserver(resize).observe(map);filter();resize();
     worker.postMessage({type:'start',aspect:Math.max(.4,(width-72)/(height-150)),nodes:nodes.map(n=>({index:n.index,community:n.community})),links:links.map(e=>({source:e.source,target:e.target,weight:e.weight}))});
     window.addEventListener('pagehide',event=>{if(!event.persisted)worker.terminate();});
     window.scoutNetwork={inspect:()=>({nodes:nodes.length,links:links.length,visible:nodes.filter(visible).length,matches:matches.size,selected:selected===null?null:nodes[selected].id,layoutRunning,positionsReady,drawCount,drawMs,camera:{...camera}})};
+})();
+</script>
+<script>/* Keep the last news query/page when moving between the map and reading pages. */
+(() => {
+    const isNews = () => /(?:\/|index\.html)$/.test(location.pathname)
+        && (new URL(location.href).searchParams.get('section') || 'findings') === 'findings';
+    const remember = () => {
+        if (!isNews()) return;
+        try { sessionStorage.setItem('scout.news.location', location.href); } catch {}
+    };
+    try {
+        const saved = new URL(sessionStorage.getItem('scout.news.location') || location.href);
+        if (!isNews() && saved.origin === location.origin && /\/index\.html$|\/$/.test(saved.pathname)) {
+            document.querySelectorAll('.scout-app-nav [data-section="findings"]').forEach(a => a.href = saved.href);
+        }
+    } catch {}
+    document.querySelector('.scout-app-header').addEventListener('click', remember);
+    window.addEventListener('pagehide', remember);
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') document.getElementById('management-menu').open = false;
+    });
+    document.addEventListener('click', event => {
+        const menu = document.getElementById('management-menu');
+        if (!menu.contains(event.target)) menu.open = false;
+    });
 })();
 </script>
 </body></html>
